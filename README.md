@@ -1,4 +1,6 @@
-Troll-grid
-===
+troll-grid
+==========
 
-Prolly add stuff to the readme
+interactive grid
+
+Pro
