@@ -1,7 +1,9 @@
 {
   "name": "trollgrid",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "socket.io": "~0.9.16"
+    },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
