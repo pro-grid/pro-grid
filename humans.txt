@@ -1,13 +1,14 @@
 # humanstxt.org/
-# The humans responsible & technology colophon
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Austin Pray -- Lead Front-end Developer -- @austinpray
+    Ridwan Hoq -- Lead Back-end Developer -- @ridhoq
 
 # THANKS
 
-    <name>
+    Darren Cattle
+    Joseph Bao
 
 # TECHNOLOGY COLOPHON
 
