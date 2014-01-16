@@ -1,0 +1,42 @@
+$grid-bg: $c__orange;
+$grid-col-bg: $c__yellow;
+$grid-col-bg--hover: $c__red;
+$grid-col-text: lighten($grid-col-bg, 10%); 
+
+html, body {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+}
+
+.g {
+  position: relative;
+  width:100%;
+  height: 100%;
+  background: $grid-bg;
+}
+
+.g__row {
+  clear: both;
+  min-height: 6.25%;
+  position:relative;
+  display: flex;
+}
+
+.g__col {
+  color: $grid-col-text;
+  //width: 6.25%;
+  display: flex;
+  flex:1;
+  min-height:100%;
+  background: $grid-col-bg;
+  align-items: center;
+  box-pack: center;
+  text-align: center;
+  &:hover {
+    background: $grid-col-bg--hover;
+  }
+}
