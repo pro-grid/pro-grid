@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('trollGridApp', [
+angular.module('proGridApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
