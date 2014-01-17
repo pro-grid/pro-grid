@@ -31,7 +31,10 @@ Possible Adaptations
 
 Team
 ---
-Austin Pray - Lead Front-end Developer
-Darren Cattle
-Ridwan Hoq - Lead Back-end Developer
-You - Open Sauce Software Contributer
+
+Person | Role
+--- | ---
+Austin Pray | Lead Front-end Developer
+Darren Cattle |
+Ridwan Hoq | Lead Back-end Developer
+You | Open Sauce Software Contributer
