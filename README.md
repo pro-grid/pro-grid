@@ -35,6 +35,6 @@ Team
 Person | Role
 --- | ---
 Austin Pray | Lead Front-end Developer
-Darren Cattle |
+Darren Cattle | Web Development God
 Ridwan Hoq | Lead Back-end Developer
 You | Open Sauce Software Contributer
