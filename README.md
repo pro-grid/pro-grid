@@ -19,3 +19,8 @@ Randomized Square Real Estate - Each user gets z% of the grid and is distributed
 Image buffering - Upload a 16x16 image and be able to place it into squares for all to see.
 3D Implementation - Each cube is represented by a 16x16x16 space and has lighting/rendering effects. Videos can be produced of renders from multiple perspective angles.
 N - ability to change number of colors and specific colors to mix things up
+
+Web Dev Gods:
+Austin Pray
+Darren Cattle
+Ridwan Hoq
