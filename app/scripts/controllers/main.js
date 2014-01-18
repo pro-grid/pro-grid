@@ -3,9 +3,18 @@
 angular.module('proGridApp')
   .controller('MainCtrl', function ($scope) {
     var socket = io.connect('http://localhost:9001');
-      socket.on('news', function (data) {
+    
+    socket.on('update', function (data) {
       console.log(data);
-      socket.emit('my other event', { my: 'data' });
+      var selector = ".col_" + data.row + "_" + data.col;
+      var el = document.querySelector(selector);
+      if(el.className.indexOf("black") > -1) {
+        el.className = el.className.replace("black", "");
+        console.log("if");
+      } else {
+        el.className = el.className + " black";
+        console.log("else");
+      }
     });
     
     $scope.awesomeThings = [
