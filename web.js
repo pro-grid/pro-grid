@@ -12,6 +12,6 @@ io.sockets.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
   socket.on('clicked', function (data) {
     console.log(data);
-    socket.emit('news', { hello: 'fuck you' });
+    io.sockets.emit('news', { hello: 'fuck you' });
   });
 });

@@ -1,7 +1,7 @@
 <div class="g">
   <div class="g__row" ng-repeat="i in generateGrid(dimensions) track by $index">
     <div class="g__col" ng-repeat="i in generateGrid(dimensions) track by $index" ng-click="gridClicked($parent.$index, $index)">
-      {{ $parent.$index+1 }} {{ $index+1 }}
+      {{ $parent.$index }} {{ $index }}
     </div>
   </div>
 </div>
