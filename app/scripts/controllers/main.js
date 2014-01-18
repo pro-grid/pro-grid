@@ -20,8 +20,8 @@ angular.module('proGridApp')
     };
 
     $scope.gridClicked = function(row, col) {
-      //Socketioservice.emit('grid:clicked');
-      // TODO: Respond to user click on the grid (by animation etc.)
+      //alert(row + " " + col);
+      socket.emit('clicked', { row: row, col: col });
     };
 
   });
