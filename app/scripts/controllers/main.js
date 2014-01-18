@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('proGridApp')
-  .controller('MainCtrl', function ($scope, socket) {
+  .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
