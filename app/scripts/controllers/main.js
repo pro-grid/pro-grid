@@ -2,7 +2,7 @@
 
 angular.module('proGridApp')
   .controller('MainCtrl', function ($scope) {
-    var socket = io.connect('http://localhost:9001');
+    var socket = io.connect();
     
     socket.on('update', function (data) {
       console.log(data);
