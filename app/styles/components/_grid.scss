@@ -1,5 +1,5 @@
-$grid-bg: $c__orange;
-$grid-col-bg: $c__yellow;
+$grid-bg: #fff;
+$grid-col-bg: #fff;
 $grid-col-bg--hover: $c__red;
 $grid-col-text: lighten($grid-col-bg, 10%); 
 
@@ -37,6 +37,7 @@ html, body {
   box-pack: center;
   text-align: center;
   &:hover {
+    cursor: pointer;
     background: $grid-col-bg--hover;
   }
 }
