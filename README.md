@@ -32,7 +32,7 @@ Possible Adaptations
 Installation
 ---
 Linux
-'''
+```
 # clone pro-grid:
 git clone git@github.com:$GITHUB_USER/$REPO.git
 cd $REPO
@@ -63,7 +63,7 @@ sudo npm install -g grunt-cli
 sudo npm install -g bower
 sudo npm install grunt-contrib-compass --save-dev
 bower install
-'''
+```
 
 Team
 ---
