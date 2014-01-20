@@ -32,19 +32,19 @@ Possible Adaptations
 Installation Guide
 ---
 Windows
-Ruby: http://rubyinstaller.org/
-Git: http://git-scm.com/downloads
-Node.js: http://nodejs.org/download/
+ - Ruby: http://rubyinstaller.org/
+ - Git: http://git-scm.com/downloads
+ - Node.js: http://nodejs.org/download/
 Create a folder to contain this (preferably in your GitHub folder)
 Open a command window in that folder (Shift + Right Click folder)
-git clone https://github.com/DarrenCattle/pro-grid.git
-npm install -g bower
-npm install -g grunt-cli
-npm install
-bower install
+ - git clone https://github.com/DarrenCattle/pro-grid.git
+ - npm install -g bower
+ - npm install -g grunt-cli
+ - npm install
+ - bower install
 Then run in separate windows:
-node web.js
-grunt serve
+ - node web.js
+ - grunt serve
 Server should automatically open and be through a client!
 
 Team
