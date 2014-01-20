@@ -21,14 +21,14 @@ html, body {
 
 .g__row {
   clear: both;
-  min-height: 6.25%;
+  min-height: 3.125%;
   position:relative;
   display: flex;
 }
 
 .g__col {
   color: $grid-col-text;
-  //width: 6.25%;
+  //width: 3.125%;
   display: flex;
   flex:1;
   min-height:100%;
