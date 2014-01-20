@@ -31,38 +31,37 @@ Possible Adaptations
 
 Installation
 ---
-Linux:
+Linux
+  # clone pro-grid:
+  git clone git@github.com:$GITHUB_USER/$REPO.git
+  cd $REPO
 
-# clone pro-grid:
-git clone git@github.com:$GITHUB_USER/$REPO.git
-cd $REPO
+  # checkout working branch
+  git checkout fix4
 
-# checkout working branch
-git checkout fix4
+  intall RVM:
+  \curl -L https://get.rvm.io | bash -s stable
+  source ~/.rvm/scripts/rvm
+  rvm requirements
+  rvm install ruby
+  rvm use ruby --default
+  rvm rubygems current
+  gem install rails
+  gem install compass
 
-intall RVM:
-\curl -L https://get.rvm.io | bash -s stable
-source ~/.rvm/scripts/rvm
-rvm requirements
-rvm install ruby
-rvm use ruby --default
-rvm rubygems current
-gem install rails
-gem install compass
+  # install node.js
+  sudo apt-get update
+  sudo apt-get install python-software-properties
+  sudo apt-add-repository ppa:chris-lea/node.js
+  sudo apt-get update
+  sudo apt-get install nodejs
 
-# install node.js
-sudo apt-get update
-sudo apt-get install python-software-properties
-sudo apt-add-repository ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install nodejs
-
-# install grunt and bower
-sudo npm install -g n
-sudo npm install -g grunt-cli
-sudo npm install -g bower
-sudo npm install grunt-contrib-compass --save-dev
-bower install
+  # install grunt and bower
+  sudo npm install -g n
+  sudo npm install -g grunt-cli
+  sudo npm install -g bower
+  sudo npm install grunt-contrib-compass --save-dev
+  bower install
 
 Team
 ---
