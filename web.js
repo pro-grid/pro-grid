@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
+  //Socket listener for user click
   socket.on('clicked', function (data) {
     console.log(data);
     io.sockets.emit('update', data);

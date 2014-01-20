@@ -3,7 +3,7 @@
 angular.module('proGridApp')
   .controller('MainCtrl', function ($scope) {
     var socket = io.connect();
-    
+    // Socket listener for updating grid
     socket.on('update', function (data) {
       console.log(data);
       var selector = ".col_" + data.row + "_" + data.col;
@@ -30,6 +30,7 @@ angular.module('proGridApp')
 
     $scope.gridClicked = function(row, col) {
       //alert(row + " " + col);
+      // Sends a signal upon user click
       socket.emit('clicked', { row: row, col: col });
     };
 
