@@ -36,42 +36,29 @@ Windows
 =======
 Installation
 ---
-Linux
+### Linux
 
-```
-# clone pro-grid:
-git clone git@github.com:$GITHUB_USER/$REPO.git
-cd $REPO
-
+```bash
 # checkout working branch
 git checkout fix4
 
-intall RVM:
-\curl -L https://get.rvm.io | bash -s stable
-source ~/.rvm/scripts/rvm
-rvm requirements
-rvm install ruby
-rvm use ruby --default
-rvm rubygems current
-gem install rails
+# install RVM (optional)
+# read this https://rvm.io/rvm/install
 gem install compass
 
 # install node.js
-sudo apt-get update
-sudo apt-get install python-software-properties
-sudo apt-add-repository ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install nodejs
+# read this https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
 
 # install grunt and bower
-sudo npm install -g n
-sudo npm install -g grunt-cli
-sudo npm install -g bower
-sudo npm install grunt-contrib-compass --save-dev
+npm install -g n
+n stable
+npm install -g grunt-cli
+npm install -g bower
+npm install
 bower install
 ```
 
-Windows
+### Windows
 
  - Ruby: http://rubyinstaller.org/
  - Git: http://git-scm.com/downloads
