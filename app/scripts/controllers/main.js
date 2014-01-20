@@ -22,7 +22,7 @@ angular.module('proGridApp')
       'AngularJS',
       'Karma'
     ];
-    $scope.dimensions = 16;
+    $scope.dimensions = 32;
 
     $scope.generateGrid = function(num) {
       return new Array(num);
