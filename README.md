@@ -31,37 +31,45 @@ Possible Adaptations
 
 Installation Guide
 ---
-Windows
+### Windows
  - Ruby: http://rubyinstaller.org/
  - Git: http://git-scm.com/downloads
  - Node.js: http://nodejs.org/download/
  - Create a folder to contain this (preferably in your GitHub folder)
  - Open a command window in that folder (Shift + Right Click folder)
- - git clone https://github.com/DarrenCattle/pro-grid.git
- - git pull
- - npm install -g bower
- - npm install -g grunt-cli
- - npm install
- - bower install
- - Then run in separate windows:
- - node web.js
- - grunt serve
- - Server should automatically open and be through a client!
 
-Linux
- - clone pro-grid:
- - git clone git@github.com:$GITHUB_USER/$REPO.git cd $REPO
- - git checkout working branch 
- - git checkout fix4
- - install RVM: \curl -L https://get.rvm.io | bash -s stable source ~/.rvm/scripts/rvm rvm requirements rvm install ruby  - rvm use ruby --default rvm rubygems current gem install rails gem install compass
- - install node.js
- - sudo apt-get update sudo apt-get install python-software-properties sudo apt-add-repository ppa:chris-lea/node.js
- - sudo apt-get update sudo apt-get install nodejs
- - install grunt and bower
- - sudo npm install -g n 
- - sudo npm install -g grunt-cli 
- - sudo npm install -g bower 
- - sudo npm install grunt-contrib-compass --save-dev bower install
+```bash
+git clone https://github.com/DarrenCattle/pro-grid.git
+git pull
+npm install -g bower
+npm install -g grunt-cli
+npm install
+bower install
+node web.js
+127.0.0.1/9000/#/
+```
+
+### Linux
+
+```bash
+# checkout working branch
+git checkout fix4
+
+# install RVM (optional)
+# read this https://rvm.io/rvm/install
+gem install compass
+
+# install node.js
+# read this https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+
+# install grunt and bower
+npm install -g n
+n stable
+npm install -g grunt-cli
+npm install -g bower
+npm install
+bower install
+```
 
 Team
 ---
