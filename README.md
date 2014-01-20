@@ -29,6 +29,24 @@ Possible Adaptations
  - _3D Implementation_ - Each cube is represented by a 16x16x16 space and has lighting/rendering effects. Videos can be produced of renders from multiple perspective angles.
  - _N_ - ability to change number of colors and specific colors to mix things up
 
+Installation Guide
+---
+Windows
+Ruby: http://rubyinstaller.org/
+Git: http://git-scm.com/downloads
+Node.js: http://nodejs.org/download/
+Create a folder to contain this (preferably in your GitHub folder)
+Open a command window in that folder (Shift + Right Click folder)
+git clone https://github.com/DarrenCattle/pro-grid.git
+npm install -g bower
+npm install -g grunt-cli
+npm install
+bower install
+Then run in separate windows:
+node web.js
+grunt serve
+Server should automatically open and be through a client!
+
 Team
 ---
 
