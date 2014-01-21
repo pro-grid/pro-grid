@@ -17,35 +17,35 @@ var grid = [];
 for(var y = 0; y < gridDimensions; y++) {
   grid.push(new Array(gridDimensions));
   for(var x = 0; x < gridDimensions; x++) {
-
+    grid[y][x] = {
+      row: y,
+      col: x,
+      color: ""
+    };
   }
 }
 
-grid[0][0] = {
-  row: 0,
-  col: 0,
-  color: "#000"
-};
+grid[0][0].color = "#000";
 
 /* server startup checks. If any of these fail the server will not run. 
  * the validateData function in order to start the server. 
  */
 (function serverTests() {
   //test validateData
-  console.log("Startup tests engage");
+  console.log("info: Startup tests engage");
   var testData = {
     row: 10000,
     col: "notvalid",
     color: "totallynotvalid"
   }
   if(validateData(testData, 32) === true) {
-    console.log("FAILED: validateData function is not working properly");
+    console.error("FAILED: validateData function is not working properly");
     process.exit(1);
   } else {
     console.log("PASSED: validateData is nominal");
   }
   if(!grid) {
-    console.log("FAILED: grid is not instantiated properly");
+    console.error("FAILED: grid is not instantiated properly");
     process.exit(1);
   } else {
     console.log("PASSED: grid instantiation nominal");
@@ -63,6 +63,7 @@ app.get('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
+  socket.emit('server ready', { gridArray: grid });
   //Socket listener for user click
   socket.on('clicked', function (data) {
     console.log(data);
