@@ -1,20 +1,37 @@
 'use strict';
 
 angular.module('proGridApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', ['$scope', 'Randomcolor', function ($scope, Randomcolor) {
     var socket = io.connect();
     // Socket listener for updating grid
+    var userColor = Randomcolor.new();
+    var updateGrid = function(row, col, color) {
+      var selector = '.col_' + row + '_' + col;
+      var el = document.querySelector(selector);
+      if(el.style.backgroundColor) {
+        el.style.backgroundColor = '';
+      } else {
+        el.style.backgroundColor = color;
+      }
+    };
+
+    socket.on('server ready', function (data) {
+      //grid is an array
+      console.log("init");
+      data.gridArray.forEach(function (element) {
+        element.forEach(function (element) {
+          updateGrid(element.row, element.col, element.color);
+        });
+      });
+    });
+
     socket.on('update', function (data) {
       console.log(data);
-      var selector = ".col_" + data.row + "_" + data.col;
-      var el = document.querySelector(selector);
-      if(el.className.indexOf("black") > -1) {
-        el.className = el.className.replace("black", "");
-        console.log("if");
-      } else {
-        el.className = el.className + " black";
-        console.log("else");
-      }
+      updateGrid(data.row, data.col, data.color);
+    });
+
+    socket.on('naughty', function (data) {
+      console.log(data.message);
     });
     
     $scope.awesomeThings = [
@@ -29,9 +46,6 @@ angular.module('proGridApp')
     };
 
     $scope.gridClicked = function(row, col) {
-      //alert(row + " " + col);
-      // Sends a signal upon user click
-      socket.emit('clicked', { row: row, col: col });
+      socket.emit('clicked', { row: row, col: col, color: userColor });
     };
-
-  });
+  }]);
