@@ -25,8 +25,6 @@ for(var y = 0; y < gridDimensions; y++) {
   }
 }
 
-grid[0][0].color = "#000";
-
 /* server startup checks. If any of these fail the server will not run. 
  * the validateData function in order to start the server. 
  */
@@ -66,7 +64,16 @@ io.sockets.on('connection', function (socket) {
   socket.emit('server ready', { gridArray: grid });
   //Socket listener for user click
   socket.on('clicked', function (data) {
-    console.log(data);
-    io.sockets.emit('update', data);
+    if(validateData(data, gridDimensions)) {
+      var gridCol = grid[data.row][data.col];
+      if(gridCol.color == '') {
+        gridCol.color = data.color;
+      } else {
+        gridCol.color = '';
+      }
+      io.sockets.emit('update', gridCol);
+    } else {
+      socket.emit('naughty', { message: "data validation did not pass"});
+    }
   });
 });

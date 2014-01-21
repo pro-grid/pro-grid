@@ -14,7 +14,7 @@ angular.module('proGridApp')
         el.style.backgroundColor = color;
       }
     };
-    
+
     socket.on('server ready', function (data) {
       //grid is an array
       console.log("init");
@@ -28,6 +28,10 @@ angular.module('proGridApp')
     socket.on('update', function (data) {
       console.log(data);
       updateGrid(data.row, data.col, data.color);
+    });
+
+    socket.on('naughty', function (data) {
+      console.log(data.message);
     });
     
     $scope.awesomeThings = [
