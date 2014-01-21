@@ -10,3 +10,7 @@
 .black {
   background-color: black !important;
 }
+* {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
