@@ -33,12 +33,7 @@ angular.module('proGridApp')
     socket.on('naughty', function (data) {
       console.log(data.message);
     });
-    
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
     $scope.dimensions = 32;
 
     $scope.generateGrid = function(num) {
@@ -46,6 +41,8 @@ angular.module('proGridApp')
     };
 
     $scope.gridClicked = function(row, col) {
+      updateGrid(row, col, userColor);
       socket.emit('clicked', { row: row, col: col, color: userColor });
     };
+    $scope.gridClicked = _.throttle($scope.gridClicked, 100);
   }]);

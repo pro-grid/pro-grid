@@ -4,7 +4,8 @@ angular.module('proGridApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ngTouch'
 ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -16,7 +17,3 @@ angular.module('proGridApp', [
         redirectTo: '/'
       });
   });
-
-window.addEventListener('load', function() {
-  FastClick.attach(document.body);
-}, false);

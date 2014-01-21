@@ -71,7 +71,7 @@ io.sockets.on('connection', function (socket) {
       } else {
         gridCol.color = '';
       }
-      io.sockets.emit('update', gridCol);
+      socket.broadcast.emit('update', gridCol);
     } else {
       socket.emit('naughty', { message: "data validation did not pass"});
     }
