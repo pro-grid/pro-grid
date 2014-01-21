@@ -1,16 +1,17 @@
 'use strict';
 
 angular.module('proGridApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', ['$scope', 'Randomcolor', function ($scope, Randomcolor) {
     var socket = io.connect();
     // Socket listener for updating grid
+    console.log("random " + Randomcolor.new());
     socket.on('update', function (data) {
       console.log(data);
       var selector = ".col_" + data.row + "_" + data.col;
       var el = document.querySelector(selector);
       if(el.className.indexOf("black") > -1) {
         el.className = el.className.replace("black", "");
-        console.log("if");
+        
       } else {
         el.className = el.className + " black";
         console.log("else");
@@ -34,4 +35,4 @@ angular.module('proGridApp')
       socket.emit('clicked', { row: row, col: col });
     };
 
-  });
+  }]);
