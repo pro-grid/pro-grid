@@ -39,9 +39,6 @@ Installation
 ### Linux
 
 ```bash
-# checkout working branch
-git checkout fix4
-
 # install RVM (optional)
 # read this https://rvm.io/rvm/install
 gem install compass
