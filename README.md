@@ -13,9 +13,9 @@ Method
 ---
 This will be accomplished by creating a screen filled with 16x16 squares and starting with a blank webpage.
 Squares can be cycled between "n" amount of colors by clicking... {1,2,3...n}
-Default color should be neutral (preferably black or white)
-Through updating the color in each square using websockets and node.js we wish to save the file as an ongoing project.
-Eventually screenshots will be taken every minute for a whole month, then .gif or .mp4's can be produced with video images over an entire month. This will create interactive videos and can be coupled with statistics such as how many concurrent users over a period exist, etc.
+Default color should be neutral (white)
+Through updating the color in each square using websockets and node.js we wish to save the file as an ongoing project. Each user will be assigned a random color on entry, and this can be changed upon refresh. This enables you to realize who is messing with your stuff and possibly create "color bias" through the application. Clicking on an already colored square will remove anyones color to white, this would be the invisible method of interaction where it could be anyone.
+Eventually screenshots will be taken every minute for a whole month, then .gif or .mp4's can be produced with video images over an entire month. This will create interactive videos and can be coupled with statistics such as how many concurrent users over a period exist, which colors were the most popular, etc.
 
 Audience
 ---
