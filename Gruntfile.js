@@ -349,6 +349,16 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+
+    nodemon: {
+      dev: {
+        script: 'web.js',
+        options: {
+          watch: ['web.js'],
+          nodeArgs: ['--debug']
+        }
+      }
     }
   });
 
@@ -402,5 +412,9 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('web', [
+    'nodemon:dev'
   ]);
 };
