@@ -17,7 +17,7 @@ angular.module('proGridApp')
 
     socket.on('server ready', function (data) {
       //grid is an array
-      console.log("init");
+      console.log("Hello There! Hope you are enjoying the app. Please be nice! Please help us fix our issues over at: https://github.com/ridhoq/pro-grid Thank you. -progrid.io");
       data.gridArray.forEach(function (element) {
         element.forEach(function (element) {
           updateGrid(element.row, element.col, element.color);
@@ -26,7 +26,6 @@ angular.module('proGridApp')
     });
 
     socket.on('update', function (data) {
-      console.log(data);
       updateGrid(data.row, data.col, data.color);
     });
 
