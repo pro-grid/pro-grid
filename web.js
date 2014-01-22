@@ -1,3 +1,7 @@
+if(process.env.NEW_RELIC_APP_NAME) {
+  require('newrelic');
+} // requires new relic if the production env is heroku
+
 var gridDimensions = 32;
 var express = require('express');
 var validator = require('validator');
