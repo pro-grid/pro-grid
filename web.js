@@ -105,7 +105,6 @@ if(process.env.NODE_ENV === 'production') {
   io.set('log level', 1);                  
   io.set('transports', [
       'websocket'
-    , 'flashsocket'
     , 'htmlfile'
     , 'xhr-polling'
     , 'jsonp-polling'
