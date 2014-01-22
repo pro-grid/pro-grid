@@ -11,11 +11,9 @@ The experiment is run with two blind variables:
 
 Method
 ---
-This will be accomplished by creating a screen filled with 16x16 squares and starting with a blank webpage.
-Squares can be cycled between "n" amount of colors by clicking... {1,2,3...n}
-Default color should be neutral (preferably black or white)
-Through updating the color in each square using websockets and node.js we wish to save the file as an ongoing project.
-Eventually screenshots will be taken every minute for a whole month, then .gif or .mp4's can be produced with video images over an entire month. This will create interactive videos and can be coupled with statistics such as how many concurrent users over a period exist, etc.
+This will be accomplished by creating a screen filled with MxM squares and starting with a blank webpage.
+Through updating the color in each square using websockets and node.js we wish to save the file as an ongoing project. Each user will be assigned a random color on entry, and this can be changed upon refresh. This enables you to realize who is messing with your stuff and possibly create "color bias" through the application. Clicking on an already colored square will remove anyones color to white, this would be the invisible method of interaction "anonymous cleansing" where it could be anyone.
+Eventually screenshots will be taken every minute for a whole month, then .gif or .mp4's can be produced with video images over an entire month. This will create interactive videos and can be coupled with statistics such as how many concurrent users over a period exist, which colors were the most popular, etc.
 
 Audience
 ---
@@ -29,12 +27,32 @@ Possible Adaptations
  - _3D Implementation_ - Each cube is represented by a 16x16x16 space and has lighting/rendering effects. Videos can be produced of renders from multiple perspective angles.
  - _N_ - ability to change number of colors and specific colors to mix things up
 
-
-Installation
+Installation Guide
 ---
+### Windows
+ - Ruby: http://rubyinstaller.org/
+ - Git: http://git-scm.com/downloads
+ - Node.js: http://nodejs.org/download/
+ - Create a folder to contain this (preferably in your GitHub folder)
+ - Open a command window in that folder (Shift + Right Click folder)
+
+```bash
+git clone https://github.com/DarrenCattle/pro-grid.git
+git pull
+npm install -g bower
+npm install -g grunt-cli
+npm install
+bower install
+node web.js
+127.0.0.1/9001/#/
+```
+
 ### Linux
 
 ```bash
+# checkout working branch
+git checkout fix4
+
 # install RVM (optional)
 # read this https://rvm.io/rvm/install
 gem install compass
@@ -49,25 +67,9 @@ npm install -g grunt-cli
 npm install -g bower
 npm install
 bower install
+node web.js
+127.0.0.1/9001/#/
 ```
-
-### Windows
-
- - Ruby: http://rubyinstaller.org/
- - Git: http://git-scm.com/downloads
- - Node.js: http://nodejs.org/download/
- - Create a folder to contain this (preferably in your GitHub folder)
- - Open a command window in that folder (Shift + Right Click folder)
- - git clone https://github.com/DarrenCattle/pro-grid.git
- - git pull
- - npm install -g bower
- - npm install -g grunt-cli
- - npm install
- - bower install
- - Then run in separate windows:
- - node web.js
- - grunt serve
- - Server should automatically open and be through a client!
 
 Team
 ---
