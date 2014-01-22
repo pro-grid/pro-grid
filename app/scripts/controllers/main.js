@@ -16,6 +16,7 @@ angular.module('proGridApp')
     };
 
     socket.on('server ready', function (data) {
+      alert("note: the app is currently being attacked by Gnatzis")
       //grid is an array
       console.log("Hello There! Hope you are enjoying the app. Please be nice! Please help us fix our issues over at: https://github.com/ridhoq/pro-grid Thank you. -progrid.io");
       data.gridArray.forEach(function (element) {
