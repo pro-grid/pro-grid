@@ -4,10 +4,8 @@ angular.module('proGridApp')
   .controller('MainCtrl', function ($scope) {
     var socket = io.connect();
     var getRandomColor = function() {
-      var letters = '0123456789ABCDEF'.split('');
-      var color = '#';
-      for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.round(Math.random() * 15)];
+      var colorset = ['#001F3F','#7FDBFF','#01FF70','#FFDC00','#DDDDDD','#FF4136','#F012BE','#111111'];
+        color = colorset[Math.floor(Math.random() * 8)];
       }
       return color;
     }
