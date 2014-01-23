@@ -110,7 +110,7 @@ io.set('log level', 1);
 io.sockets.on('connection', function (socket) {
   
   generateApiKey(socket);
-  console.log("api keys registered:\n" + apiKeys.join('\n'));
+  console.log("api keys registered:\n" + apiKeys.length);
   socket.emit('server ready', { gridArray: grid });
   //Socket listener for user click
   socket.on('clicked', function (data) {
