@@ -27,12 +27,13 @@ function generateApiKey (socket) {
   console.log("socket: " + socket + " key: " + key);
   socket.set('apiKey', key, function() {
     apiKeys.push(key);
+    socket.emit('fresh api key', { apiKey: key});
   });
 }
 
 function checkApiKey (key) {
-  console.log('check this key ' + key.toString().length);
-  if(validator.isHexadecimal(key) && key.toString().length === 96) {
+  console.log('check this key ' + key);
+  if(key && validator.isHexadecimal(key) && key.toString().length === 96) {
     var exists = apiKeys.indexOf(key);
     console.log("exists: " + exists);
     if(exists > -1) {
@@ -115,27 +116,25 @@ io.set('log level', 1);
 io.sockets.on('connection', function (socket) {
   
   generateApiKey(socket);
-  console.log(apiKeys.join('\n'));
+  console.log("api keys registered:\n" + apiKeys.join('\n'));
   socket.emit('server ready', { gridArray: grid });
   //Socket listener for user click
   socket.on('clicked', function (data) {
-    socket.get('apiKey', function(err, key) {
-      var check = checkApiKey(key);
-      console.log("check " + check);
-      if(validateData(data, gridDimensions) && check) {
-        var gridCol = grid[data.row][data.col];
-        generateApiKey(socket);
-        if(gridCol.color == '') {
-          gridCol.color = data.color;
-        } else {
-          gridCol.color = '';
-        }
-        socket.broadcast.emit('update', gridCol);
+    var check = checkApiKey(data.apiKey);
+    console.log("check " + check);
+    if(validateData(data, gridDimensions) && check) {
+      var gridCol = grid[data.row][data.col];
+      generateApiKey(socket);
+      if(gridCol.color == '') {
+        gridCol.color = data.color;
       } else {
-        socket.emit('naughty', { message: "data validation did not pass"});
+        gridCol.color = '';
       }
-    });
-    
+      socket.broadcast.emit('update', gridCol);
+    } else {
+      socket.emit('naughty', { message: "goodbye"});
+      socket.disconnect();
+    }    
   });
 
   socket.on('disconnect', function() {
