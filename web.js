@@ -3,16 +3,45 @@ if(process.env.NEW_RELIC_APP_NAME) {
 } // requires new relic if the production env is heroku
 
 var gridDimensions = 32;
+var crypto = require('crypto');
 var express = require('express');
 var validator = require('validator');
 var app = express()
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
-
+// valid api keys
+var apiKeys = [];
 
 function validateData(data, dimensions) {
   // yeah so what it's a long return statement why you talkin shit
   return validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color) && data.row < dimensions && data.col < dimensions;
+}
+
+function generateApiKey (socket) {
+  // works
+  var key = crypto.randomBytes(48).toString('hex');
+  console.log("socket: " + socket.id + " key: " + key);
+  socket.set('apiKey', key, function() {
+    apiKeys.push(key);
+    socket.emit('fresh api key', { apiKey: key});
+  });
+}
+
+function checkApiKey (key) {
+  console.log('check this key ' + key + 'for client ' + socket.handshake.address);
+  if(key && validator.isHexadecimal(key) && key.toString().length === 96) {
+    var exists = apiKeys.indexOf(key);
+    if(exists > -1) {
+      apiKeys.splice(exists, 1);
+      return true;
+    } else {
+      console.log("unsigned request, fuck you. Reason: key is not in the apiKeys array");
+      return false;
+    }
+  } else {
+    console.log("unsigned request, fuck you. Reason: key is not valid or key not provided");
+    return false;
+  }
 }
 
 // instantiate grid array
@@ -54,7 +83,6 @@ for(var y = 0; y < gridDimensions; y++) {
   }
 }());
 
-
 var port = process.env.PORT || 9001;
 server.listen(port);
 
@@ -64,12 +92,33 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/dist/index.html');
 });
 
+if(process.env.NODE_ENV === 'production') {
+
+  io.enable('browser client minification');
+  io.enable('browser client etag');        
+  io.enable('browser client gzip');        
+  io.set('log level', 1);                  
+  io.set('transports', [
+      'websocket'
+    , 'htmlfile'
+    , 'xhr-polling'
+    , 'jsonp-polling'
+  ]);
+
+}
+io.set('log level', 1);    
 io.sockets.on('connection', function (socket) {
+  
+  generateApiKey(socket);
+  console.log("api keys registered:\n" + apiKeys.join('\n'));
   socket.emit('server ready', { gridArray: grid });
   //Socket listener for user click
   socket.on('clicked', function (data) {
-    if(validateData(data, gridDimensions)) {
+    var check = checkApiKey(data.apiKey);
+    console.log("check " + check);
+    if(validateData(data, gridDimensions) && check) {
       var gridCol = grid[data.row][data.col];
+      generateApiKey(socket);
       if(gridCol.color == '') {
         gridCol.color = data.color;
       } else {
@@ -77,7 +126,15 @@ io.sockets.on('connection', function (socket) {
       }
       socket.broadcast.emit('update', gridCol);
     } else {
-      socket.emit('naughty', { message: "data validation did not pass"});
-    }
+      socket.emit('naughty', { message: "goodbye"});
+      socket.disconnect();
+    }    
   });
+
+  socket.on('disconnect', function() {
+    socket.get('apiKey', function(err, key) {
+      apiKeys.splice(apiKeys.indexOf(key), 1);
+    });
+  });
+
 });

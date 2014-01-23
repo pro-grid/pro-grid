@@ -5,6 +5,7 @@ angular.module('proGridApp')
     var socket = io.connect();
     // Socket listener for updating grid
     var userColor = Randomcolor.new();
+    var apiKey = 1;
     var updateGrid = function(row, col, color) {
       var selector = '.col_' + row + '_' + col;
       var el = document.querySelector(selector);
@@ -17,7 +18,7 @@ angular.module('proGridApp')
 
     socket.on('server ready', function (data) {
       //grid is an array
-      console.log("init");
+      console.log("Hello There! Hope you are enjoying the app. Please be nice! Please help us fix our issues over at: https://github.com/ridhoq/pro-grid Thank you. -progrid.io");
       data.gridArray.forEach(function (element) {
         element.forEach(function (element) {
           updateGrid(element.row, element.col, element.color);
@@ -25,8 +26,11 @@ angular.module('proGridApp')
       });
     });
 
+    socket.on('fresh api key', function (data) {
+      apiKey = data.apiKey;
+    });
+
     socket.on('update', function (data) {
-      console.log(data);
       updateGrid(data.row, data.col, data.color);
     });
 
@@ -42,7 +46,7 @@ angular.module('proGridApp')
 
     $scope.gridClicked = function(row, col) {
       updateGrid(row, col, userColor);
-      socket.emit('clicked', { row: row, col: col, color: userColor });
+      socket.emit('clicked', { row: row, col: col, color: userColor, apiKey: apiKey });
     };
     $scope.gridClicked = _.throttle($scope.gridClicked, 100);
   }]);
