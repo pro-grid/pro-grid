@@ -28,7 +28,7 @@ function generateApiKey (socket) {
 }
 
 function checkApiKey (key) {
-  console.log('check this key ' + key + 'for client ' + socket.handshake.address);
+  console.log('check this key ' + key);
   if(key && validator.isHexadecimal(key) && key.toString().length === 96) {
     var exists = apiKeys.indexOf(key);
     if(exists > -1) {
