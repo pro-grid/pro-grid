@@ -9,6 +9,7 @@ deploy:
   provider: heroku
   api_key:
     secure: Pip8uYF5DVF5eeTy+rYn/WxNJ8bWLQKs6EEzxGrTbQDxyKWWZCVUxk8urzio7xFXqohkbCaJeu3v4rFvaBi5bS5lAOPy7OH3QSGGWXrrkqaI/5T6w0FpMnvKT4T3OZaj/r07wqX4TxoeIEOdtDr47JNRFRxGrVbdCvWjtVbOo0I=
-  app: pro-grid-staging
+  app: 
+    master: pro-grid-staging
   on:
     repo: ridhoq/pro-grid
