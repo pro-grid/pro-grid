@@ -2,6 +2,8 @@ pro-grid
 ===
 _Grid designed for interaction by multiple users._
 
+[![Build Status](https://travis-ci.org/ridhoq/pro-grid.png?branch=master)](https://travis-ci.org/ridhoq/pro-grid)
+
 Goal
 ---
 Our goal is to create an application which explores the interaction between users.
