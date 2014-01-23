@@ -2,8 +2,6 @@ if(process.env.NEW_RELIC_APP_NAME) {
   require('newrelic');
 } // requires new relic if the production env is heroku
 
-
-
 var gridDimensions = 32;
 var crypto = require('crypto');
 var express = require('express');
@@ -19,12 +17,10 @@ function validateData(data, dimensions) {
   return validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color) && data.row < dimensions && data.col < dimensions;
 }
 
-
-
 function generateApiKey (socket) {
   // works
   var key = crypto.randomBytes(48).toString('hex');
-  console.log("socket: " + socket + " key: " + key);
+  console.log("socket: " + socket.id + " key: " + key);
   socket.set('apiKey', key, function() {
     apiKeys.push(key);
     socket.emit('fresh api key', { apiKey: key});
@@ -32,20 +28,18 @@ function generateApiKey (socket) {
 }
 
 function checkApiKey (key) {
-  console.log('check this key ' + key);
+  console.log('check this key ' + key + 'for client ' + socket.handshake.address);
   if(key && validator.isHexadecimal(key) && key.toString().length === 96) {
     var exists = apiKeys.indexOf(key);
-    console.log("exists: " + exists);
     if(exists > -1) {
       apiKeys.splice(exists, 1);
-      console.log("true");
       return true;
     } else {
-      console.log("unsigned request, fuck you 1");
+      console.log("unsigned request, fuck you. Reason: key is not in the apiKeys array");
       return false;
     }
   } else {
-    console.log("unsigned request, fuck you 2");
+    console.log("unsigned request, fuck you. Reason: key is not valid or key not provided");
     return false;
   }
 }
