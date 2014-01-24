@@ -18,8 +18,10 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
+  "laxcomma": true,
   "globals": {
     "angular": false,
-    "io": false
+    "io": false,
+    "_": false
   }
 }

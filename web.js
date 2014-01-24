@@ -1,48 +1,21 @@
+'use strict';
+
 if(process.env.NEW_RELIC_APP_NAME) {
   require('newrelic');
-} // requires new relic if the production env is heroku
+}
 
-var gridDimensions = 32;
-var crypto = require('crypto');
-var express = require('express');
-var validator = require('validator');
-var app = express()
+// dependencies
+var express = require('express')
+  , app = express()
+  , async = require('async')
+  , crypto = require('crypto')
+  , validator = require('validator')
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
+// grid dimensions
+var gridDimensions = 32;
 // valid api keys
 var apiKeys = [];
-
-function validateData(data, dimensions) {
-  // yeah so what it's a long return statement why you talkin shit
-  return validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color) && data.row < dimensions && data.col < dimensions;
-}
-
-function generateApiKey (socket) {
-  // works
-  var key = crypto.randomBytes(48).toString('hex');
-  console.log("socket: " + socket.id + " key: " + key);
-  socket.set('apiKey', key, function() {
-    apiKeys.push(key);
-    socket.emit('fresh api key', { apiKey: key});
-  });
-}
-
-function checkApiKey (key) {
-  console.log('check this key ' + key);
-  if(key && validator.isHexadecimal(key) && key.toString().length === 96) {
-    var exists = apiKeys.indexOf(key);
-    if(exists > -1) {
-      apiKeys.splice(exists, 1);
-      return true;
-    } else {
-      console.log("unsigned request, fuck you. Reason: key is not in the apiKeys array");
-      return false;
-    }
-  } else {
-    console.log("unsigned request, fuck you. Reason: key is not valid or key not provided");
-    return false;
-  }
-}
 
 // instantiate grid array
 // this happens once per server boot
@@ -53,35 +26,105 @@ for(var y = 0; y < gridDimensions; y++) {
     grid[y][x] = {
       row: y,
       col: x,
-      color: ""
+      color: ''
     };
   }
 }
 
-/* server startup checks. If any of these fail the server will not run. 
- * the validateData function in order to start the server. 
- */
-(function serverTests() {
-  //test validateData
-  console.log("info: Startup tests engage");
-  var testData = {
-    row: 10000,
-    col: "notvalid",
-    color: "totallynotvalid"
+function validateData(data) {
+  // yeah so what it's a long return statement why you talkin shit
+  return validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color) && data.row < data.dimensions && data.col < data.dimensions && data.apiKey;
+}
+
+function validateApiKey (key) {
+  return key && typeof key === 'string' && key.toString().length === 96 && validator.isHexadecimal(key);
+}
+
+function validateTimeApiKey (keyObj, callback) {
+  // if the time between api keys is less than 100ms
+  var compareTime = process.hrtime(keyObj.time);
+  compareTime = (compareTime[0] * 1e9 + compareTime[1]);
+  console.log('time: ' + compareTime);
+  callback(compareTime > 100000000);
+}
+
+function removeApiKey (key, callback) {
+  console.log('trying to remove api key');
+  apiKeys.splice(apiKeys.indexOf(key));
+  callback();
+}
+
+function addApiKey (key, callback) {
+  apiKeys.push(key);
+  if (typeof(callback) !== 'undefined') {
+    callback();
   }
-  if(validateData(testData, 32) === true) {
-    console.error("FAILED: validateData function is not working properly");
-    process.exit(1);
-  } else {
-    console.log("PASSED: validateData is nominal");
-  }
-  if(!grid) {
-    console.error("FAILED: grid is not instantiated properly");
-    process.exit(1);
-  } else {
-    console.log("PASSED: grid instantiation nominal");
-  }
-}());
+}
+
+function generateApiKey (socket, unwind) {
+  crypto.randomBytes(48, function(ex, buf) {
+    if (ex) {
+      throw ex;
+    }
+    var key = {
+      client: socket.id,
+      apiKey: buf.toString('hex'),
+      time: process.hrtime()
+    };
+    console.log('socket: ' + socket.id + ' key: ' + JSON.stringify(key));
+    socket.set('apiKey', key, function() {
+      console.log(key);
+      socket.emit('fresh api key', { apiKey: key.apiKey });
+      addApiKey(key);
+      unwind();
+    });
+  });
+}
+
+
+function checkApiKey (key, next) {
+  var unwind = next;
+  console.log('check this key ' + key + '\nagainst ' + JSON.stringify(apiKeys) + '\n\n');
+  console.log('trying');
+  async.detect(
+    apiKeys,
+    function (item, callback) {
+      callback(item.apiKey === key);
+    },
+    function (result) {
+      if(result !== undefined) {
+        removeApiKey(result, function () {
+          validateTimeApiKey(result, function (result) {
+            if(result) {
+              unwind(null, true);
+            } else {
+              unwind('you are clicking 2fast2furious : rate limit error', false);
+            }
+          });
+          
+        });
+      } else {
+        unwind('check api failed');
+      }
+    });
+}
+
+function updateGrid (data, socket) {
+  var gridCol = grid[data.row][data.col];
+  generateApiKey(socket, function () {
+    if(gridCol.color === '') {
+      gridCol.color = data.color;
+    } else {
+      gridCol.color = '';
+    }
+    socket.broadcast.emit('update', gridCol);
+  });
+}
+
+// run the server tests
+// require('./server-tests.js');
+
+// core app logic
 
 var port = process.env.PORT || 9001;
 server.listen(port);
@@ -92,49 +135,68 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/dist/index.html');
 });
 
+// optimizations for production
 if(process.env.NODE_ENV === 'production') {
 
   io.enable('browser client minification');
-  io.enable('browser client etag');        
-  io.enable('browser client gzip');        
-  io.set('log level', 1);                  
+  io.enable('browser client etag');
+  io.enable('browser client gzip');
+  io.set('log level', 1);
   io.set('transports', [
       'websocket'
     , 'htmlfile'
     , 'xhr-polling'
     , 'jsonp-polling'
-  ]);
+    ]);
 
 }
-io.set('log level', 1);    
-io.sockets.on('connection', function (socket) {
-  
-  generateApiKey(socket);
-  console.log("api keys registered:\n" + apiKeys.length);
-  socket.emit('server ready', { gridArray: grid });
-  //Socket listener for user click
-  socket.on('clicked', function (data) {
-    var check = checkApiKey(data.apiKey);
-    console.log("check " + check);
-    if(validateData(data, gridDimensions) && check) {
-      var gridCol = grid[data.row][data.col];
-      generateApiKey(socket);
-      if(gridCol.color == '') {
-        gridCol.color = data.color;
-      } else {
-        gridCol.color = '';
-      }
-      socket.broadcast.emit('update', gridCol);
-    } else {
-      socket.emit('naughty', { message: "goodbye"});
-      socket.disconnect();
-    }    
-  });
+io.set('log level', 1);
 
-  socket.on('disconnect', function() {
-    socket.get('apiKey', function(err, key) {
-      apiKeys.splice(apiKeys.indexOf(key), 1);
+// describe client connection   
+io.sockets.on('connection', function (socket) {
+  generateApiKey(socket, function () {
+    console.log('api keys registered:\n' + apiKeys.length);
+    socket.emit('server ready', { gridArray: grid });
+    //Socket listener for user click
+    socket.on('clicked', function (data) {
+      data.dimensions = gridDimensions;
+      async.series({
+        verifyData: function(callback) {
+          if(validateData(data)) {
+            callback(null, true);
+          } else {
+            callback('data validation did not pass');
+          }
+        },
+        verifyApi: function(callback) {
+          if(validateApiKey(data.apiKey)) {
+            callback(null, true);
+          } else {
+            callback('not a valid key format');
+          }
+        },
+        matchApi: function(callback) {
+          checkApiKey(data.apiKey, callback);
+        },
+        updateGrid: function(callback) {
+          updateGrid(data, socket);
+          callback(null, true);
+        }
+      },
+      function(err, results) {
+        console.log('error: ' + err);
+        console.log(JSON.stringify(results));
+        socket.emit('naughty', { message: 'goodbye'});
+        socket.disconnect();
+      });
+    });
+
+    socket.on('disconnect', function() {
+      socket.get('apiKey', function(err, key) {
+        removeApiKey(key, function () {
+          console.log('removed api key');
+        });
+      });
     });
   });
-
 });
