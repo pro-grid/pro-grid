@@ -184,10 +184,12 @@ io.sockets.on('connection', function (socket) {
         }
       },
       function(err, results) {
-        console.log('error: ' + err);
         console.log(JSON.stringify(results));
-        socket.emit('naughty', { message: 'goodbye'});
-        socket.disconnect();
+        if(err) {
+          console.log('error: ' + err);
+          socket.emit('naughty', { message: 'goodbye'});
+          socket.disconnect();
+        }
       });
     });
 
