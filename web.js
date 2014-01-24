@@ -49,8 +49,11 @@ function validateTimeApiKey (keyObj, callback) {
 }
 
 function removeApiKey (key, callback) {
-  console.log('trying to remove api key');
-  apiKeys.splice(apiKeys.indexOf(key));
+  var index = apiKeys.indexOf(key);
+  console.log('trying to remove api key ' + index);
+  if(index > -1) {
+    apiKeys.splice(index, 1);
+  }
   callback();
 }
 
@@ -84,15 +87,17 @@ function generateApiKey (socket, unwind) {
 
 function checkApiKey (key, next) {
   var unwind = next;
-  console.log('check this key ' + key + '\nagainst ' + JSON.stringify(apiKeys) + '\n\n');
+  console.log('check this key ' + key + '\nagainst ' + JSON.stringify(apiKeys, null, "\t"));
   console.log('trying');
   async.detect(
     apiKeys,
     function (item, callback) {
+      console.log('checkApiKey iterator \n' + item.apiKey + '\n' + key)
       callback(item.apiKey === key);
     },
     function (result) {
       if(result !== undefined) {
+        console.log('checkApiKey found ' + JSON.stringify(result, null, '\t') + "\nIN\n" + JSON.stringify(apiKeys, null, '\t'));
         removeApiKey(result, function () {
           validateTimeApiKey(result, function (result) {
             if(result) {
@@ -159,6 +164,7 @@ io.sockets.on('connection', function (socket) {
     socket.emit('server ready', { gridArray: grid });
     //Socket listener for user click
     socket.on('clicked', function (data) {
+      console.log('***\n' + socket.id + " clicked");
       data.dimensions = gridDimensions;
       async.series({
         verifyData: function(callback) {
