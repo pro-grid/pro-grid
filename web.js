@@ -1,5 +1,9 @@
 'use strict';
 
+if(process.env.NODE_ENV !== 'production') {
+  var heapdump = require('heapdump');
+}
+
 if(process.env.NEW_RELIC_APP_NAME) {
   require('newrelic');
 }
@@ -8,7 +12,6 @@ if(process.env.NEW_RELIC_APP_NAME) {
 var express = require('express')
   , app = express()
   , async = require('async')
-  , crypto = require('crypto')
   , uuid = require('node-uuid')
   , validator = require('validator')
   , server = require('http').createServer(app)
@@ -33,16 +36,16 @@ for(var y = 0; y < gridProperties.dimensions; y++) {
   }
 }
 
-function validateData(data, callback) {
+function validateData(data) {
   // yeah so what it's a long return statement why you talkin shit
   var vTypes = validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color);
   var vDimensions = data.row < gridProperties.dimensions && data.col < gridProperties.dimensions;
   var vApiKey = data.apiKey !== undefined;
-  console.log("Validating data: %s %s %s", vTypes, vDimensions, vApiKey);
+  console.log('Validating data: %s %s %s', vTypes, vDimensions, vApiKey);
   return vTypes && vDimensions && vApiKey;
 }
 
-function updateGrid (client, data, callback) {
+function updateGrid (client, data) {
   var gridCol = grid[data.row][data.col];
   if(gridCol.color === '') {
     gridCol.color = data.color;
@@ -63,16 +66,16 @@ ApiKeys.debug(true);
 // Api Keys
 // ApiKeyHandler
 var ApiKeyHandler = function (client, key, callback) { // Create
-  console.log("called ApiKeyHandler");
+  console.log('called ApiKeyHandler');
   var self = this;
   this.client = client;
   this.key = key;
   async.series({
     verifyKey: function(callback) {
       if(ApiKeyHandler.verify) {
-        callback(null, "valid");
+        callback(null, 'valid');
       } else {
-        callback("key is not valid");
+        callback('key is not valid');
       }
     },
     checkIfExists: function(callback) {
@@ -85,7 +88,7 @@ var ApiKeyHandler = function (client, key, callback) { // Create
       ApiKeyHandler.newKey(self.client, callback);
     }
   });
-}
+};
 
 ApiKeyHandler.verify = function() {
   return validator.isUUID(this.key, 4);
@@ -93,10 +96,10 @@ ApiKeyHandler.verify = function() {
 
 ApiKeyHandler.query = function(data, callback) {
   if(!!data) {
-    console.log("found %s", data.key)
-    callback(null, "found the api key");
+    console.log('found %s', data.key);
+    callback(null, 'found the api key');
   } else {
-    callback("failed to find api key");
+    callback('failed to find api key');
   }
 };
 
@@ -159,10 +162,10 @@ io.sockets.on('connection', function (socket) {
     socket.emit('server ready', { gridArray: grid });
     //Socket listener for user click
     socket.on('clicked', function (data) {
-      console.log('***\n' + socket.id + " clicked");
+      console.log('***\n' + socket.id + ' clicked');
       if(validateData(data)) {
-        var genApiKey = new ApiKeyHandler(socket, data.apiKey, function() {
-          updateGrid(socket, data)
+        new ApiKeyHandler(socket, data.apiKey, function() {
+          updateGrid(socket, data);
         });
       } else {
         console.warn('warning: user provided invalid data: %s %s %s %s', data.row, data.col, data.color, data.apiKey);
