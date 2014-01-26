@@ -80,7 +80,7 @@ Team
 
 Person | Role
 --- | ---
-Austin Pray | Lead Front-end Developer
+Austin Pray | Lead Javascript Snob
 Darren Cattle | Web Development God
-Ridwan Hoq | Lead Back-end Developer
+Ridwan Hoq | Repo Mule
 You | Open Sauce Software Contributer
