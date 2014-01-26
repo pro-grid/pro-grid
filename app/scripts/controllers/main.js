@@ -57,5 +57,5 @@ angular.module('proGridApp')
     $scope.closeMessage = function() {
       $scope.message = false;
     };
-    $scope.gridClicked = _.throttle($scope.gridClicked, 100);
+    $scope.gridClicked = _.throttle($scope.gridClicked, 100, {trailing: false});
   }]);
