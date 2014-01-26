@@ -81,7 +81,7 @@ var ApiKeyHandler = function (client, key, callback) { // Create
       self.clientSession.allowance += compareTime * (rate / per);
       console.log('time diff: ' + compareTime);
       if (self.clientSession.allowance > rate) {
-        self.clientSession.allowance = rate; // throttle
+        self.clientSession.allowance = rate; // discard extra tokens
       }
       if (self.clientSession.allowance < 1.0) {
         callback("rate limited");

@@ -15,7 +15,6 @@ angular.module('proGridApp')
         el.style.backgroundColor = color;
       }
     };
-
     socket.on('server ready', function (data) {
       //grid is an array
       console.log('Hello There! Hope you are enjoying the app. Please be nice! Please help us fix our issues over at: https://github.com/ridhoq/pro-grid Thank you. -progrid.io');
@@ -33,8 +32,14 @@ angular.module('proGridApp')
     socket.on('update', function (data) {
       updateGrid(data.row, data.col, data.color);
     });
-
+    socket.on('connect', function () {
+      $scope.message = false;
+    });
     socket.on('disconnect', function () {
+      $scope.message = {
+        title: "Disconnected",
+        body: "You have been disconnected. Feel free to refresh the page if this message doesn’t go away."
+      };
       console.log('goodbye');
     });
 
@@ -47,6 +52,10 @@ angular.module('proGridApp')
     $scope.gridClicked = function(row, col) {
       updateGrid(row, col, userColor);
       socket.emit('clicked', { row: row, col: col, color: userColor, apiKey: apiKey });
+    };
+
+    $scope.closeMessage = function() {
+      $scope.message = false;
     };
     $scope.gridClicked = _.throttle($scope.gridClicked, 100);
   }]);

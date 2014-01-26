@@ -4,3 +4,9 @@
     </div>
   </div>
 </div>
+
+<div class="message" ng-if="message">
+  <h1 class="message-title">{{ message.title }}</h1>
+  <p>{{ message.body }}</p>
+  <button class="message-button" ng-click="closeMessage()">ok</button>
+</div>
