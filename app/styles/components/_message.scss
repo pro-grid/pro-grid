@@ -1,0 +1,56 @@
+$c__modal: $c__navy;
+$only: "only screen and";
+$mq-message-1: "#{$only} (min-width: 25rem)";
+$mq-message-2: "#{$only} (min-width: 37.5rem)";
+$mq-message-3: "#{$only} (min-width: 56.25rem)";
+$mq-message-4: "#{$only} (min-width: 64rem)";
+
+.message {
+  position:absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  background: $c__modal;
+  opacity:0.90;
+  margin:1em;
+  color:#fff;
+  text-align: center;
+  padding:1em;
+  @media #{$mq-message-1} {
+    font-size: 150%;
+  }
+  @media #{$mq-message-2} {
+    font-size: 175%;
+  }
+  @media #{$mq-message-3} {
+    font-size: 200%;
+  }
+  @media #{$mq-message-4} {
+    font-size: 300%;
+  }
+}
+
+.message-title {
+
+}
+
+.message-text {
+
+}
+
+.message-button {
+  display: block;
+  margin: 0 auto;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.618em;
+  text-align: center;
+  color: #fff;
+  border: 0.25em solid #fff;
+  background: transparent;
+  &:hover {
+    background:#fff;
+    color:$c__modal;
+  }
+}
