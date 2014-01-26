@@ -1,9 +1,5 @@
 'use strict';
 
-if(process.env.NODE_ENV !== 'production') {
-  var heapdump = require('heapdump');
-}
-
 if(process.env.NEW_RELIC_APP_NAME) {
   require('newrelic');
 }
@@ -40,7 +36,7 @@ function validateData(data) {
   // yeah so what it's a long return statement why you talkin shit
   var vTypes = validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color);
   var vDimensions = data.row < gridProperties.dimensions && data.col < gridProperties.dimensions;
-  var vApiKey = data.apiKey !== undefined;
+  var vApiKey = data.apiKey !== undefined && ApiKeyHandler.verify(data.apiKey);
   console.log('Validating data: %s %s %s', vTypes, vDimensions, vApiKey);
   return vTypes && vDimensions && vApiKey;
 }
@@ -69,48 +65,60 @@ var ApiKeyHandler = function (client, key, callback) { // Create
   console.log('called ApiKeyHandler');
   var self = this;
   this.client = client;
+  this.clientSession = {};
   this.key = key;
   async.series({
-    verifyKey: function(callback) {
-      if(ApiKeyHandler.verify) {
-        callback(null, 'valid');
-      } else {
-        callback('key is not valid');
-      }
-    },
     checkIfExists: function(callback) {
-      ApiKeyHandler.query(ApiKeys.get(self.client.id), callback);
+      self.clientSession = ApiKeys.get(client.id);
+      callback(!self.clientSession || null);
+    },
+    throttle: function(callback) {
+      var last_check = self.clientSession.createTime;
+      var compareTime = process.hrtime(last_check);
+      compareTime = (compareTime[0] * 1e9 + compareTime[1]); // convert to nanoseconds
+      var rate = 7; // unit: clicks
+      var per  = 1000000000; // unit: nanoseconds (1 second)
+      self.clientSession.allowance += compareTime * (rate / per);
+      console.log('time diff: ' + compareTime);
+      if (self.clientSession.allowance > rate) {
+        self.clientSession.allowance = rate; // throttle
+      }
+      if (self.clientSession.allowance < 1.0) {
+        callback("rate limited");
+      }
+      else {
+        self.clientSession.allowance -= 1.0;
+        callback(null, self.clientSession.allowance);
+      }
+      
     }
   },
   function(err, results) {
-    console.log('ApiKeyHandler Initialization: \n passed: %s \n results: %s', !err, JSON.stringify(results));
+    console.log('allowance done %s', self.clientSession.allowance);
+    self.clientSession.allowance = self.clientSession.allowance;
+    console.log('ApiKeyHandler Initialization: \n result: %s \n data: %s', err, JSON.stringify(results));
     if(!err) {
-      ApiKeyHandler.newKey(self.client, callback);
+      ApiKeyHandler.newKey(self.client, self.clientSession, callback);
+    } else {
+      self.client.disconnect();
     }
   });
 };
 
-ApiKeyHandler.verify = function() {
-  return validator.isUUID(this.key, 4);
+ApiKeyHandler.verify = function(key) {
+  return validator.isUUID(key, 4);
 };
 
-ApiKeyHandler.query = function(data, callback) {
-  if(!!data) {
-    console.log('found %s', data.key);
-    callback(null, 'found the api key');
-  } else {
-    callback('failed to find api key');
-  }
-};
-
-ApiKeyHandler.newKey = function(client, callback) {
+ApiKeyHandler.newKey = function(client, data, callback) {
   var Client = client.id || client;
   var key = uuid.v4();
+  data = (data || {}) // data is optional
   ApiKeys.put(
     Client,
     {
       key: key,
-      createTime: process.hrtime()
+      createTime: process.hrtime(),
+      allowance: data.allowance || 7
     },
     3600000); // value sits there for 1 hour if left alone
   console.log('saved');
@@ -157,7 +165,7 @@ io.set('log level', 1);
 
 // describe client connection   
 io.sockets.on('connection', function (socket) {
-  ApiKeyHandler.newKey(socket, function (socket) { // DIRTY FIX ME
+  ApiKeyHandler.newKey(socket, null, function (socket) { // DIRTY FIX ME
     console.log('api keys registered:\n' + ApiKeys.size());
     socket.emit('server ready', { gridArray: grid });
     //Socket listener for user click

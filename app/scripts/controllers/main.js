@@ -34,8 +34,8 @@ angular.module('proGridApp')
       updateGrid(data.row, data.col, data.color);
     });
 
-    socket.on('naughty', function (data) {
-      console.log(data.message);
+    socket.on('disconnect', function () {
+      console.log('goodbye');
     });
 
     $scope.dimensions = 32;
