@@ -94,8 +94,6 @@ var ApiKeyHandler = function (client, key, callback) { // Create
     }
   },
   function(err, results) {
-    console.log('allowance done %s', self.clientSession.allowance);
-    self.clientSession.allowance = self.clientSession.allowance;
     console.log('ApiKeyHandler Initialization: \n result: %s \n data: %s', err, JSON.stringify(results));
     if(!err) {
       ApiKeyHandler.newKey(self.client, self.clientSession, callback);
