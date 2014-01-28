@@ -1,6 +1,6 @@
 pro-grid
 ===
-_Grid designed for interaction by multiple users._
+_Live multiplayer grid clicking game._
 
 [![Build Status](https://travis-ci.org/ridhoq/pro-grid.png?branch=master)](https://travis-ci.org/ridhoq/pro-grid)
 
