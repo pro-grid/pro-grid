@@ -84,3 +84,4 @@ Austin Pray | Lead Javascript Snob
 Darren Cattle | Web Development God
 Ridwan Hoq | Repo Mule
 You | Open Sauce Software Contributer
+Kyle Flottman | #socialmedia
