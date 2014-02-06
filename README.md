@@ -6,6 +6,11 @@ _Live multiplayer grid clicking game._
 
 [![Code Climate](https://codeclimate.com/github/ridhoq/pro-grid.png)](https://codeclimate.com/github/ridhoq/pro-grid)
 
+\#lolsocialmedia  
+[Google+](https://plus.google.com/+ProgridIoofficial)  
+[Facebook](https://www.facebook.com/ProGrid)  
+[Twitter](https://twitter.com/Pro_Grid)
+
 Goal
 ---
 Our goal is to create an application which explores the interaction between users.
