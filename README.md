@@ -10,6 +10,8 @@ _Live multiplayer grid clicking game._
 [Facebook](https://www.facebook.com/ProGrid)  
 [Twitter](https://twitter.com/Pro_Grid)
 
+![ProGrid](http://cdn.progrid.io/progrid-logo-360.png)
+
 Goal
 ---
 Our goal is to create an application which explores the interaction between users.
