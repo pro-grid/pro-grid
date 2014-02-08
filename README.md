@@ -47,14 +47,16 @@ Installation Guide
  - Open a command window in that folder (Shift + Right Click folder)
 
 ```bash
+gem install compass
 git clone https://github.com/DarrenCattle/pro-grid.git
 git pull
 npm install -g bower
 npm install -g grunt-cli
 npm install
 bower install
+grunt build
 grunt web
-127.0.0.1/9001/#/
+http://localhost:9001/
 ```
 
 ### Linux
