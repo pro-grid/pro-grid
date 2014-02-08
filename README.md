@@ -53,7 +53,7 @@ npm install -g bower
 npm install -g grunt-cli
 npm install
 bower install
-node web.js
+grunt web
 127.0.0.1/9001/#/
 ```
 
