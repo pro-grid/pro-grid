@@ -10,7 +10,9 @@ var express = require('express')
   , async = require('async')
   , validator = require('validator')
   , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+  , io = require('socket.io').listen(server)
+  , path = require('path')
+  , fs = require('fs');
 // valid api keys
 
 var gridProperties = {
@@ -59,10 +61,10 @@ var ApiKeyHandler = require('./apikeyhandler');
 var port = process.env.PORT || 9001;
 server.listen(port);
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(path.normalize(__dirname +  '/../dist/')));
 
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/dist/index.html');
+  res.sendfile(path.normalize(__dirname +  '/../dist/index.html'));
 });
 
 // optimizations for production
