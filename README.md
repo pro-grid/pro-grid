@@ -6,6 +6,12 @@ _Live multiplayer grid clicking game._
 
 [![Code Climate](https://codeclimate.com/github/ridhoq/pro-grid.png)](https://codeclimate.com/github/ridhoq/pro-grid)
 
+[Google+](https://plus.google.com/+ProgridIoofficial)  
+[Facebook](https://www.facebook.com/ProGrid)  
+[Twitter](https://twitter.com/Pro_Grid)
+
+![ProGrid](http://cdn.progrid.io/progrid-logo-360.png)
+
 Goal
 ---
 Our goal is to create an application which explores the interaction between users.
@@ -41,14 +47,16 @@ Installation Guide
  - Open a command window in that folder (Shift + Right Click folder)
 
 ```bash
+gem install compass
 git clone https://github.com/DarrenCattle/pro-grid.git
 git pull
 npm install -g bower
 npm install -g grunt-cli
 npm install
 bower install
-node web.js
-127.0.0.1/9001/#/
+grunt build
+grunt web
+http://localhost:9001/
 ```
 
 ### Linux
