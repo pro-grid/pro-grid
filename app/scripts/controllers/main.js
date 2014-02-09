@@ -9,12 +9,25 @@ angular.module('proGridApp')
     var updateGrid = function(row, col, color) {
       var selector = '.col_' + row + '_' + col;
       var el = document.querySelector(selector);
-      if(el.style.backgroundColor) {
-        el.style.backgroundColor = '';
-      } else {
-        el.style.backgroundColor = color;
-      }
+      if(el.style.backgroundColor) {el.style.backgroundColor = '';} 
+      else {el.style.backgroundColor = color;}
     };
+    var updateRow = function(row, col, color) {
+      for (var i = 0; i < $scope.dimensions; i++)
+      updateGrid(row, i, color);
+    };
+    var updateCol = function(row, col, color) {
+      for (var i = 0; i < $scope.dimensions; i++)
+      updateGrid(i, col, color);
+    };
+    var updatePlus = function (row, col, color) {
+      updateGrid(row, col, color);
+      updateGrid(row+1, col, color);
+      updateGrid(row-1, col, color);
+      updateGrid(row, col+1, color);
+      updateGrid(row, col-1, color);
+    };
+
     socket.on('server ready', function (data) {
       //grid is an array
       console.log('Hello There! Hope you are enjoying the app. Please be nice! Please help us fix our issues over at: https://github.com/ridhoq/pro-grid Thank you. -progrid.io');
@@ -50,7 +63,7 @@ angular.module('proGridApp')
     };
 
     $scope.gridClicked = function(row, col) {
-      updateGrid(row, col, userColor);
+      updatePlus(row, col, userColor);
       socket.emit('clicked', { row: row, col: col, color: userColor, apiKey: apiKey });
     };
 
