@@ -43,15 +43,38 @@ function validateData(data) {
 
 function updateGrid (client, data) {
   var gridCol = grid[data.row][data.col];
-  if(gridCol.color === '') {
-    gridCol.color = data.color;
-  } else {
-    gridCol.color = '';
+  var option = 3;
+  switch(option) {
+    case 0:
+      if(gridCol.color === '') {gridCol.color = data.color;} 
+      else { gridCol.color = ''; }
+      console.log('updating grid');
+      client.broadcast.emit('update', gridCol, function() {console.log('updated grid');});
+    break;
+    case 1:
+      for(var a = 0; a < gridProperties.dimensions; a++) {
+        gridCol = grid[data.row][a];
+        if(gridCol.color === '') {gridCol.color = data.color;} 
+        else { gridCol.color = ''; }
+        client.broadcast.emit('update', gridCol, function() {console.log('big');});
+      }
+    break;
+    case 2:
+      for(var a = 0; a < gridProperties.dimensions; a++) {
+        gridCol = grid[a][data.col];
+        if(gridCol.color === '') {gridCol.color = data.color;} 
+        else { gridCol.color = ''; }
+        client.broadcast.emit('update', gridCol, function() {console.log('big');});
+      }
+    break;
+    case 3:
+      gridCol = grid[data.row][data.col]; gridCol.color=data.color;
+      gridCol = grid[data.row+1][data.col]; gridCol.color=data.color;
+      gridCol = grid[data.row-1][data.col]; gridCol.color=data.color;
+      gridCol = grid[data.row][data.col+1]; gridCol.color=data.color;
+      gridCol = grid[data.row][data.col-1]; gridCol.color=data.color;
+    break;
   }
-  console.log('updating grid');
-  client.broadcast.emit('update', gridCol, function() {
-    console.log('updated grid');
-  });
 }
 
 // Store for ApiKeys
