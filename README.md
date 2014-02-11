@@ -39,7 +39,7 @@ Possible Adaptations
 Building The Project
 ---
 ### General Dependencies
-This project requires the [Node.js](http://nodejs.org/) runtime as well as [Ruby](https://www.ruby-lang.org/en/). Given those dependencies are met, this project assumes you have Compass, Grunt, and Bower installed globally on your computer.
+This project requires the [Node.js](http://nodejs.org/) runtime as well as [Ruby](https://www.ruby-lang.org/en/). Given those dependencies are met, this project assumes you have [Compass](http://compass-style.org/install/), [Grunt](http://gruntjs.com/), and [Bower](http://bower.io/) installed globally on your computer.
 ### Mac
 To install Compass, Grunt, and Bower you may run:
 ```bash
