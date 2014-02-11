@@ -1,4 +1,4 @@
-pro-grid
+progrid.io
 ===
 _Live multiplayer grid clicking game._
 
