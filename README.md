@@ -10,6 +10,8 @@ _Live multiplayer grid clicking game._
 [Facebook](https://www.facebook.com/ProGrid)  
 [Twitter](https://twitter.com/Pro_Grid)
 
+![ProGrid](http://cdn.progrid.io/progrid-logo-360.png)
+
 Goal
 ---
 Our goal is to create an application which explores the interaction between users.
@@ -63,38 +65,69 @@ Visit [http://localhost:9001](http://localhost:9001) to see your grid.
  - Open a command window in that folder (Shift + Right Click folder)
 
 ```bash
+gem install compass
 git clone https://github.com/DarrenCattle/pro-grid.git
 git pull
 npm install -g bower
 npm install -g grunt-cli
 npm install
 bower install
-node web.js
-127.0.0.1/9001/#/
+grunt build
+grunt web
+http://localhost:9001/
 ```
 
 ### Linux
 
 ```bash
-# checkout working branch
-git checkout fix4
+# Install RVM and Ruby:
+# ================
+# https://rvm.io/rvm/install
 
-# install RVM (optional)
-# read this https://rvm.io/rvm/install
+# Example for Ubuntu 13.10:
+\curl -sSL https://get.rvm.io | bash -s stable
+# Verify that RVM is a bash function:
+# restart your terminal
+type rvm | head -n 1
+# See https://rvm.io/integration/gnome-terminal if you get
+# "RVM is not a function"
+rvm install 2.1.0
+rvm use 2.1.0
+# Verify that Ruby is installed
+ruby -v
 gem install compass
+# ================
 
-# install node.js
-# read this https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+# Install Node.js: 
+# ================
+# https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
 
-# install grunt and bower
-npm install -g n
-n stable
-npm install -g grunt-cli
-npm install -g bower
-npm install
+# Example for Ubuntu 13.10:
+sudo add-apt-repository ppa:chris-lea/node.js  
+sudo apt-get update  
+sudo apt-get install nodejs
+# ================
+
+# Clone pro-grid:
+# ================
+# Fork pro-grid: https://github.com/ridhoq/pro-grid
+git clone git@github.com:[your_github_username]/pro-grid.git
+git remote name origin fork
+git remote add origin git@github.com:ridhoq/pro-grid.git
+git pull --rebase origin master
+# ================
+
+# Install Grunt and Bower:
+# ================
+sudo npm install -g grunt-cli
+sudo npm install -g bower
+sudo npm install
 bower install
-node web.js
-127.0.0.1/9001/#/
+# ================
+
+grunt build
+grunt web
+# Visit http://localhost:9001/
 ```
 
 Team
