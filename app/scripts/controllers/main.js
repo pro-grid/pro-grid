@@ -37,8 +37,8 @@ angular.module('proGridApp')
     });
     socket.on('disconnect', function () {
       $scope.message = {
-        title: "Disconnected",
-        body: "You have been disconnected. Feel free to refresh the page if this message doesn’t go away."
+        title: 'Disconnected',
+        body: 'You have been disconnected. Feel free to refresh the page if this message doesn’t go away.'
       };
       console.log('goodbye');
     });
