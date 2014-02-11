@@ -107,8 +107,6 @@ git clone git@github.com:[your_github_username]/pro-grid.git
 git remote add upstream git@github.com:ridhoq/pro-grid.git
 git fetch upstream
 ```
-git remote add ridhoq git@github.com:ridhoq/pro-grid.git
-```
 Install Grunt and Bower:
 ```bash
 sudo npm install -g grunt-cli
