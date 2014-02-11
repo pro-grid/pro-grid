@@ -37,6 +37,24 @@ Possible Adaptations
 
 Installation Guide
 ---
+### Mac
+This project assumes you have Compass, Grunt, and Bower installed globally on your computer. If you do not have these things, you may run:
+```bash
+gem install compass
+npm -g install grunt-cli bower
+```
+In your project directory run:
+```bash
+npm install
+bower install
+```
+All your dependencies are installed and good to go! It just works™. Now build the project and run the web server.
+```bash
+grunt build
+grunt web
+```
+Visit [http://localhost:9001](http://localhost:9001) to see your grid.
+
 ### Windows
  - Ruby: http://rubyinstaller.org/
  - Git: http://git-scm.com/downloads
