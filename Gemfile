@@ -1,4 +1,4 @@
-# A sample Gemfile
+# run `bundle install` to install gems
 source "https://rubygems.org"
 
 gem "sass", "~> 3.2.14"
