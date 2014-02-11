@@ -75,7 +75,7 @@ bower install
 grunt build
 grunt web
 ```
-Open the server at [http://localhost:9001](http://localhost:9001)
+Open the app at [http://localhost:9001](http://localhost:9001)
 
 ### Linux
 Install RVM and Ruby: https://rvm.io/rvm/install
