@@ -36,10 +36,12 @@ Possible Adaptations
  - _3D Implementation_ - Each cube is represented by a 16x16x16 space and has lighting/rendering effects. Videos can be produced of renders from multiple perspective angles.
  - _N_ - ability to change number of colors and specific colors to mix things up
 
-Installation Guide
+Building The Project
 ---
+### General Dependencies
+This project requires the [Node.js](http://nodejs.org/) runtime as well as [Ruby](https://www.ruby-lang.org/en/). Given those dependencies are met, this project assumes you have Compass, Grunt, and Bower installed globally on your computer.
 ### Mac
-This project assumes you have Compass, Grunt, and Bower installed globally on your computer. If you do not have these things, you may run:
+To install Compass, Grunt, and Bower you may run:
 ```bash
 gem install compass
 npm -g install grunt-cli bower
@@ -49,7 +51,7 @@ In your project directory run:
 npm install
 bower install
 ```
-All your dependencies are installed and good to go! It just works™. Now build the project and run the web server.
+Now all your dependencies are installed and good to go! It just works™. Now build the project and run the web server.
 ```bash
 grunt build
 grunt web
