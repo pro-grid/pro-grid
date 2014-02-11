@@ -78,12 +78,8 @@ http://localhost:9001/
 ```
 
 ### Linux
-
+Install RVM and Ruby: https://rvm.io/rvm/install
 ```bash
-# Install RVM and Ruby:
-# ================
-# https://rvm.io/rvm/install
-
 # Example for Ubuntu 13.10:
 \curl -sSL https://get.rvm.io | bash -s stable
 # Verify that RVM is a bash function:
@@ -96,39 +92,33 @@ rvm use 2.1.0
 # Verify that Ruby is installed
 ruby -v
 gem install compass
-# ================
-
-# Install Node.js: 
-# ================
-# https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
-
+```
+Install Node.js: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+```bash
 # Example for Ubuntu 13.10:
 sudo add-apt-repository ppa:chris-lea/node.js  
 sudo apt-get update  
 sudo apt-get install nodejs
-# ================
-
-# Clone pro-grid:
-# ================
-# Fork pro-grid: https://github.com/ridhoq/pro-grid
+```
+Fork pro-grid: https://github.com/ridhoq/pro-grid
+```bash
 git clone git@github.com:[your_github_username]/pro-grid.git
 git remote name origin fork
 git remote add origin git@github.com:ridhoq/pro-grid.git
-git pull --rebase origin master
-# ================
-
-# Install Grunt and Bower:
-# ================
+```
+Install Grunt and Bower:
+```bash
 sudo npm install -g grunt-cli
 sudo npm install -g bower
 sudo npm install
 bower install
-# ================
-
+```
+Build the project and run the web server
+```bash
 grunt build
 grunt web
-# Visit http://localhost:9001/
 ```
+Visit http://localhost:9001/
 
 Team
 ---
