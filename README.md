@@ -100,11 +100,14 @@ sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update  
 sudo apt-get install nodejs
 ```
-Fork pro-grid: https://github.com/ridhoq/pro-grid
+Fork pro-grid: https://github.com/ridhoq/pro-grid  
+If you need help understanding visit: https://help.github.com/articles/fork-a-repo
 ```bash
 git clone git@github.com:[your_github_username]/pro-grid.git
-git remote name origin fork
-git remote add origin git@github.com:ridhoq/pro-grid.git
+git remote add upstream git@github.com:ridhoq/pro-grid.git
+git fetch upstream
+```
+git remote add ridhoq git@github.com:ridhoq/pro-grid.git
 ```
 Install Grunt and Bower:
 ```bash
