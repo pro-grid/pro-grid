@@ -7,7 +7,7 @@ We appreciate all pull requests. However in an effort to keep the code maintaina
 run `grunt jshint` to check your build for [JSHint](http://www.jshint.com/) errors. This helps easily enforce best practices across all contributions.
 >JSHint is a community-driven tool to detect errors and potential problems in JavaScript code and to enforce your team's coding conventions. It is very flexible so you can easily adjust it to your particular coding guidelines and the environment you expect your code to execute in. JSHint is open source and will always stay this way.
 
-### Asynchronous Style
+### Asynchronous style
 If you would like to make improvements to web.js (the node server componenet), we are trying to minimize the amount of synchronous code. Please consider writing in an asynchronous style when modifying web.js. 
 
 **More information:**
