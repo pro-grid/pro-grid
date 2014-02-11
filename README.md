@@ -2,8 +2,7 @@ pro-grid
 ===
 _Live multiplayer grid clicking game._
 
-[![Build Status](https://travis-ci.org/ridhoq/pro-grid.png?branch=master)](https://travis-ci.org/ridhoq/pro-grid)
-
+[![Build Status](https://travis-ci.org/ridhoq/pro-grid.png?branch=master)](https://travis-ci.org/ridhoq/pro-grid) 
 [![Code Climate](https://codeclimate.com/github/ridhoq/pro-grid.png)](https://codeclimate.com/github/ridhoq/pro-grid)
 
 [Google+](https://plus.google.com/+ProgridIoofficial)  
