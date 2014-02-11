@@ -63,18 +63,19 @@ Visit [http://localhost:9001](http://localhost:9001) to see your grid.
  - Create a folder to contain this (preferably in your GitHub folder)
  - Open a command window in that folder (Shift + Right Click folder)
 
+Fork pro-grid: https://github.com/ridhoq/pro-grid  
+If you need help understanding visit: https://help.github.com/articles/fork-a-repo
+
 ```bash
 gem install compass
-git clone https://github.com/DarrenCattle/pro-grid.git
-git pull
 npm install -g bower
 npm install -g grunt-cli
 npm install
 bower install
 grunt build
 grunt web
-http://localhost:9001/
 ```
+Open the server at [http://localhost:9001](http://localhost:9001)
 
 ### Linux
 Install RVM and Ruby: https://rvm.io/rvm/install
