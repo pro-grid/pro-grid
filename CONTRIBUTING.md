@@ -14,3 +14,6 @@ If you would like to make improvements to web.js (the node server componenet), w
  - http://blog.shinetech.com/2011/08/26/asynchronous-code-design-with-node-js/
  - https://github.com/caolan/async#asyncjs
  - http://book.mixu.net/node/ch7.html
+
+### We agile now
+Austin is the scrum master or whatever
