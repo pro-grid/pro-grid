@@ -2,9 +2,9 @@ pro-grid
 ===
 _Live multiplayer grid clicking game._
 
-[![Build Status](https://travis-ci.org/ridhoq/pro-grid.png?branch=master)](https://travis-ci.org/ridhoq/pro-grid)
+[![Build Status](https://travis-ci.org/pro-grid/pro-grid.png?branch=master)](https://travis-ci.org/pro-grid/pro-grid)
 
-[![Code Climate](https://codeclimate.com/github/ridhoq/pro-grid.png)](https://codeclimate.com/github/ridhoq/pro-grid)
+[![Code Climate](https://codeclimate.com/github/pro-grid/pro-grid.png)](https://codeclimate.com/github/pro-grid/pro-grid)
 
 [Google+](https://plus.google.com/+ProgridIoofficial)  
 [Facebook](https://www.facebook.com/ProGrid)  
@@ -92,10 +92,10 @@ sudo apt-get install nodejs
 
 # Clone pro-grid:
 # ================
-# Fork pro-grid: https://github.com/ridhoq/pro-grid
+# Fork pro-grid: https://github.com/pro-grid/pro-grid
 git clone git@github.com:[your_github_username]/pro-grid.git
 git remote name origin fork
-git remote add origin git@github.com:ridhoq/pro-grid.git
+git remote add origin git@github.com:pro-grid/pro-grid.git
 git pull --rebase origin master
 # ================
 
