@@ -15,4 +15,4 @@ deploy:
   app: 
     master: pro-grid-staging
   on:
-    repo: ridhoq/pro-grid
+    repo: pro-grid/pro-grid
