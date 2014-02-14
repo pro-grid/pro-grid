@@ -11,7 +11,7 @@ var express = require('express')
   , uuid = require('node-uuid')
   , validator = require('validator')
   , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+  , ioServer = require('socket.io').listen(server);
 // valid api keys
 
 var gridProperties = {
@@ -30,15 +30,6 @@ for(var y = 0; y < gridProperties.dimensions; y++) {
       color: ''
     };
   }
-}
-
-function validateData(data) {
-  // yeah so what it's a long return statement why you talkin shit
-  var vTypes = validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color);
-  var vDimensions = data.row < gridProperties.dimensions && data.col < gridProperties.dimensions;
-  var vApiKey = data.apiKey !== undefined && ApiKeyHandler.verify(data.apiKey);
-  console.log('Validating data: %s %s %s', vTypes, vDimensions, vApiKey);
-  return vTypes && vDimensions && vApiKey;
 }
 
 function updateGrid (client, data) {
@@ -73,8 +64,8 @@ var ApiKeyHandler = function (client, key, callback) { // Create
       callback(!self.clientSession || null);
     },
     throttle: function(callback) {
-      var last_check = self.clientSession.createTime;
-      var compareTime = process.hrtime(last_check);
+      var lastCheck = self.clientSession.createTime;
+      var compareTime = process.hrtime(lastCheck);
       compareTime = (compareTime[0] * 1e9 + compareTime[1]); // convert to nanoseconds
       var rate = 7; // unit: clicks
       var per  = 1000000000; // unit: nanoseconds (1 second)
@@ -84,7 +75,7 @@ var ApiKeyHandler = function (client, key, callback) { // Create
         self.clientSession.allowance = rate; // discard extra tokens
       }
       if (self.clientSession.allowance < 1.0) {
-        callback("rate limited");
+        callback('rate limited');
       }
       else {
         self.clientSession.allowance -= 1.0;
@@ -110,7 +101,7 @@ ApiKeyHandler.verify = function(key) {
 ApiKeyHandler.newKey = function(client, data, callback) {
   var Client = client.id || client;
   var key = uuid.v4();
-  data = (data || {}) // data is optional
+  data = (data || {}); // data is optional
   ApiKeys.put(
     Client,
     {
@@ -134,6 +125,15 @@ ApiKeyHandler.delete = function(client, callback) {
   }
 };
 
+function validateData(data) {
+  // yeah so what it's a long return statement why you talkin shit
+  var vTypes = validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color);
+  var vDimensions = data.row < gridProperties.dimensions && data.col < gridProperties.dimensions;
+  var vApiKey = data.apiKey !== undefined && ApiKeyHandler.verify(data.apiKey);
+  console.log('Validating data: %s %s %s', vTypes, vDimensions, vApiKey);
+  return vTypes && vDimensions && vApiKey;
+}
+
 // core app logic
 var port = process.env.PORT || 9001;
 server.listen(port);
@@ -147,11 +147,11 @@ app.get('/', function (req, res) {
 // optimizations for production
 if(process.env.NODE_ENV === 'production') {
 
-  io.enable('browser client minification');
-  io.enable('browser client etag');
-  io.enable('browser client gzip');
-  io.set('log level', 1);
-  io.set('transports', [
+  ioServer.enable('browser client minification');
+  ioServer.enable('browser client etag');
+  ioServer.enable('browser client gzip');
+  ioServer.set('log level', 1);
+  ioServer.set('transports', [
       'websocket'
     , 'htmlfile'
     , 'xhr-polling'
@@ -159,10 +159,10 @@ if(process.env.NODE_ENV === 'production') {
     ]);
 
 }
-io.set('log level', 1);
+ioServer.set('log level', 1);
 
 // describe client connection   
-io.sockets.on('connection', function (socket) {
+ioServer.sockets.on('connection', function (socket) {
   ApiKeyHandler.newKey(socket, null, function (socket) { // DIRTY FIX ME
     console.log('api keys registered:\n' + ApiKeys.size());
     socket.emit('server ready', { gridArray: grid });
