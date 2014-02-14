@@ -100,7 +100,7 @@ module.exports = function (grunt) {
       all: [
         'Gruntfile.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js',
-        'web.js'
+        'server/web.js'
       ],
       test: {
         options: {
@@ -354,9 +354,9 @@ module.exports = function (grunt) {
 
     nodemon: {
       dev: {
-        script: 'web.js',
+        script: 'server/web.js',
         options: {
-          watch: ['web.js'],
+          watch: ['server/web.js'],
           nodeArgs: ['--debug']
         }
       }

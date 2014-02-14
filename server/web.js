@@ -7,11 +7,10 @@ if(process.env.NEW_RELIC_APP_NAME) {
 // dependencies
 var express = require('express')
   , app = express()
-  , async = require('async')
-  , uuid = require('node-uuid')
   , validator = require('validator')
   , server = require('http').createServer(app)
-  , ioServer = require('socket.io').listen(server);
+  , ioServer = require('socket.io').listen(server)
+  , path = require('path');
 // valid api keys
 
 var gridProperties = {
@@ -45,85 +44,7 @@ function updateGrid (client, data) {
   });
 }
 
-// Store for ApiKeys
-var ApiKeys = require('memory-cache');
-ApiKeys.debug(true);
-
-// Create, verify, update and delete
-// Api Keys
-// ApiKeyHandler
-var ApiKeyHandler = function (client, key, callback) { // Create
-  console.log('called ApiKeyHandler');
-  var self = this;
-  this.client = client;
-  this.clientSession = {};
-  this.key = key;
-  async.series({
-    checkIfExists: function(callback) {
-      self.clientSession = ApiKeys.get(client.id);
-      callback(!self.clientSession || null);
-    },
-    throttle: function(callback) {
-      var lastCheck = self.clientSession.createTime;
-      var compareTime = process.hrtime(lastCheck);
-      compareTime = (compareTime[0] * 1e9 + compareTime[1]); // convert to nanoseconds
-      var rate = 7; // unit: clicks
-      var per  = 1000000000; // unit: nanoseconds (1 second)
-      self.clientSession.allowance += compareTime * (rate / per);
-      console.log('time diff: ' + compareTime);
-      if (self.clientSession.allowance > rate) {
-        self.clientSession.allowance = rate; // discard extra tokens
-      }
-      if (self.clientSession.allowance < 1.0) {
-        callback('rate limited');
-      }
-      else {
-        self.clientSession.allowance -= 1.0;
-        callback(null, self.clientSession.allowance);
-      }
-      
-    }
-  },
-  function(err, results) {
-    console.log('ApiKeyHandler Initialization: \n result: %s \n data: %s', err, JSON.stringify(results));
-    if(!err) {
-      ApiKeyHandler.newKey(self.client, self.clientSession, callback);
-    } else {
-      self.client.disconnect();
-    }
-  });
-};
-
-ApiKeyHandler.verify = function(key) {
-  return validator.isUUID(key, 4);
-};
-
-ApiKeyHandler.newKey = function(client, data, callback) {
-  var Client = client.id || client;
-  var key = uuid.v4();
-  data = (data || {}); // data is optional
-  ApiKeys.put(
-    Client,
-    {
-      key: key,
-      createTime: process.hrtime(),
-      allowance: data.allowance || 7
-    },
-    3600000); // value sits there for 1 hour if left alone
-  console.log('saved');
-  if(callback !== undefined) {
-    console.log('trying to send fresh api key');
-    client.emit('fresh api key', { apiKey: key });
-    callback(client);
-  }
-};
-
-ApiKeyHandler.delete = function(client, callback) {
-  ApiKeys.del(client);
-  if(callback !== undefined) {
-    callback(null, true);
-  }
-};
+var ApiKeyHandler = require('./apikeyhandler');
 
 function validateData(data) {
   // yeah so what it's a long return statement why you talkin shit
@@ -138,10 +59,10 @@ function validateData(data) {
 var port = process.env.PORT || 9001;
 server.listen(port);
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(path.normalize(__dirname +  '/../dist/')));
 
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/dist/index.html');
+  res.sendfile(path.normalize(__dirname +  '/../dist/index.html'));
 });
 
 // optimizations for production
@@ -164,7 +85,7 @@ ioServer.set('log level', 1);
 // describe client connection   
 ioServer.sockets.on('connection', function (socket) {
   ApiKeyHandler.newKey(socket, null, function (socket) { // DIRTY FIX ME
-    console.log('api keys registered:\n' + ApiKeys.size());
+    console.log('api keys registered:\n' + ApiKeyHandler.ApiKeys.size());
     socket.emit('server ready', { gridArray: grid });
     //Socket listener for user click
     socket.on('clicked', function (data) {
@@ -179,7 +100,7 @@ ioServer.sockets.on('connection', function (socket) {
     });
     socket.on('disconnect', function() {
       ApiKeyHandler.delete(socket.id);
-      console.log('api keys registered:\n' + ApiKeys.size());
+      console.log('api keys registered:\n' + ApiKeyHandler.ApiKeys.size());
     });
   });
 });
