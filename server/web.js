@@ -45,9 +45,6 @@ function updateGrid (client, data) {
 
 var ApiKeyHandler = require('./apikeyhandler');
 var ClientValidator = require('./clientvalidator')
-function validateData(data) {
-
-}
 
 // core app logic
 var port = process.env.PORT || 9001;
