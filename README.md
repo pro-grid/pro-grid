@@ -1,9 +1,8 @@
-pro-grid
+progrid.io
 ===
 _Live multiplayer grid clicking game._
 
-[![Build Status](https://travis-ci.org/pro-grid/pro-grid.png?branch=master)](https://travis-ci.org/pro-grid/pro-grid)
-
+[![Build Status](https://travis-ci.org/pro-grid/pro-grid.png?branch=master)](https://travis-ci.org/pro-grid/pro-grid)  
 [![Code Climate](https://codeclimate.com/github/pro-grid/pro-grid.png)](https://codeclimate.com/github/pro-grid/pro-grid)
 
 [Google+](https://plus.google.com/+ProgridIoofficial)  
@@ -37,8 +36,28 @@ Possible Adaptations
  - _3D Implementation_ - Each cube is represented by a 16x16x16 space and has lighting/rendering effects. Videos can be produced of renders from multiple perspective angles.
  - _N_ - ability to change number of colors and specific colors to mix things up
 
-Installation Guide
+Building The Project
 ---
+### General Dependencies
+This project requires the [Node.js](http://nodejs.org/) runtime as well as [Ruby](https://www.ruby-lang.org/en/). Given those dependencies are met, this project assumes you have [Compass](http://compass-style.org/install/), [Grunt](http://gruntjs.com/), and [Bower](http://bower.io/) installed globally on your computer.
+### Mac
+To install Compass, Grunt, and Bower you may run:
+```bash
+gem install compass
+npm -g install grunt-cli bower
+```
+In your project directory run:
+```bash
+npm install
+bower install
+```
+Now all your dependencies are installed and good to go! It just works™. Now build the project and run the web server.
+```bash
+grunt build
+grunt web
+```
+Visit [http://localhost:9001](http://localhost:9001) to see your grid.
+
 ### Windows
  - Ruby: http://rubyinstaller.org/
  - Git: http://git-scm.com/downloads
@@ -46,26 +65,23 @@ Installation Guide
  - Create a folder to contain this (preferably in your GitHub folder)
  - Open a command window in that folder (Shift + Right Click folder)
 
+Fork pro-grid: https://github.com/ridhoq/pro-grid  
+If you need help understanding visit: https://help.github.com/articles/fork-a-repo
+
 ```bash
 gem install compass
-git clone https://github.com/DarrenCattle/pro-grid.git
-git pull
 npm install -g bower
 npm install -g grunt-cli
 npm install
 bower install
 grunt build
 grunt web
-http://localhost:9001/
 ```
+Open the app at [http://localhost:9001](http://localhost:9001)
 
 ### Linux
-
+Install RVM and Ruby: https://rvm.io/rvm/install
 ```bash
-# Install RVM and Ruby:
-# ================
-# https://rvm.io/rvm/install
-
 # Example for Ubuntu 13.10:
 \curl -sSL https://get.rvm.io | bash -s stable
 # Verify that RVM is a bash function:
@@ -78,39 +94,34 @@ rvm use 2.1.0
 # Verify that Ruby is installed
 ruby -v
 gem install compass
-# ================
-
-# Install Node.js: 
-# ================
-# https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
-
+```
+Install Node.js: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+```bash
 # Example for Ubuntu 13.10:
 sudo add-apt-repository ppa:chris-lea/node.js  
 sudo apt-get update  
 sudo apt-get install nodejs
-# ================
-
-# Clone pro-grid:
-# ================
-# Fork pro-grid: https://github.com/pro-grid/pro-grid
+```
+Fork pro-grid: https://github.com/pro-grid/pro-grid  
+If you need help understanding visit: https://help.github.com/articles/fork-a-repo
+```bash
 git clone git@github.com:[your_github_username]/pro-grid.git
-git remote name origin fork
-git remote add origin git@github.com:pro-grid/pro-grid.git
-git pull --rebase origin master
-# ================
-
-# Install Grunt and Bower:
-# ================
+git remote add upstream git@github.com:pro-grid/pro-grid.git
+git fetch upstream
+```
+Install Grunt and Bower:
+```bash
 sudo npm install -g grunt-cli
 sudo npm install -g bower
 sudo npm install
 bower install
-# ================
-
+```
+Build the project and run the web server
+```bash
 grunt build
 grunt web
-# Visit http://localhost:9001/
 ```
+Visit http://localhost:9001/
 
 Team
 ---
