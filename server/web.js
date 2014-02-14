@@ -7,7 +7,6 @@ if(process.env.NEW_RELIC_APP_NAME) {
 // dependencies
 var express = require('express')
   , app = express()
-  , validator = require('validator')
   , server = require('http').createServer(app)
   , ioServer = require('socket.io').listen(server)
   , path = require('path');
@@ -45,15 +44,7 @@ function updateGrid (client, data) {
 }
 
 var ApiKeyHandler = require('./apikeyhandler');
-
-function validateData(data) {
-  // yeah so what it's a long return statement why you talkin shit
-  var vTypes = validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color);
-  var vDimensions = data.row < gridProperties.dimensions && data.col < gridProperties.dimensions;
-  var vApiKey = data.apiKey !== undefined && ApiKeyHandler.verify(data.apiKey);
-  console.log('Validating data: %s %s %s', vTypes, vDimensions, vApiKey);
-  return vTypes && vDimensions && vApiKey;
-}
+var ClientValidator = require('./clientvalidator')
 
 // core app logic
 var port = process.env.PORT || 9001;
@@ -90,7 +81,7 @@ ioServer.sockets.on('connection', function (socket) {
     //Socket listener for user click
     socket.on('clicked', function (data) {
       console.log('***\n' + socket.id + ' clicked');
-      if(validateData(data)) {
+      if(ClientValidator(data, gridProperties.dimensions)) {
         new ApiKeyHandler(socket, data.apiKey, function() {
           updateGrid(socket, data);
         });

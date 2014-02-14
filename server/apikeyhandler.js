@@ -11,7 +11,6 @@ var async = require('async')
   , uuid = require('node-uuid');
 
 var ApiKeyHandler = function (client, key, callback) { // Create
-  console.log('called ApiKeyHandler');
   var self = this;
   this.client = client;
   this.clientSession = {};

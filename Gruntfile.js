@@ -15,6 +15,8 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  grunt.loadNpmTasks('grunt-mocha-test');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -352,6 +354,15 @@ module.exports = function (grunt) {
       }
     },
 
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/spec/server/*.js']
+      }
+    },
+
     nodemon: {
       dev: {
         script: 'server/web.js',
@@ -389,7 +400,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+    'mochaTest'
   ]);
 
   grunt.registerTask('build', [
