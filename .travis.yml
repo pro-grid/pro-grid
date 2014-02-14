@@ -1,7 +1,9 @@
 language: node_js
 node_js:
 - '0.10'
-before_install: gem install compass
+before_install:
+- gem install bundler
+- bundle install
 before_script:
 - npm install -g bower grunt-cli
 - bower install
@@ -12,4 +14,4 @@ deploy:
   app: 
     master: pro-grid-staging
   on:
-    repo: ridhoq/pro-grid
+    repo: pro-grid/pro-grid
