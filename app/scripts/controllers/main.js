@@ -17,7 +17,7 @@ angular.module('proGridApp')
     };
     socket.on('server ready', function (data) {
       //grid is an array
-      console.log('Hello There! Hope you are enjoying the app. Please be nice! Please help us fix our issues over at: https://github.com/ridhoq/pro-grid Thank you. -progrid.io');
+      console.log('Hello There! Hope you are enjoying the app. Please be nice! Please help us fix our issues over at: https://github.com/pro-grid/pro-grid Thank you. -progrid.io');
       data.gridArray.forEach(function (element) {
         element.forEach(function (element) {
           updateGrid(element.row, element.col, element.color);
@@ -37,8 +37,8 @@ angular.module('proGridApp')
     });
     socket.on('disconnect', function () {
       $scope.message = {
-        title: "Disconnected",
-        body: "You have been disconnected. Feel free to refresh the page if this message doesn’t go away."
+        title: 'Disconnected',
+        body: 'You have been disconnected. Feel free to refresh the page if this message doesn’t go away.'
       };
       console.log('goodbye');
     });

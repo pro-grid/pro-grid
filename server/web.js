@@ -7,12 +7,10 @@ if(process.env.NEW_RELIC_APP_NAME) {
 // dependencies
 var express = require('express')
   , app = express()
-  , async = require('async')
   , validator = require('validator')
   , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server)
-  , path = require('path')
-  , fs = require('fs');
+  , ioServer = require('socket.io').listen(server)
+  , path = require('path');
 // valid api keys
 
 var gridProperties = {
@@ -33,15 +31,6 @@ for(var y = 0; y < gridProperties.dimensions; y++) {
   }
 }
 
-function validateData(data) {
-  // yeah so what it's a long return statement why you talkin shit
-  var vTypes = validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color);
-  var vDimensions = data.row < gridProperties.dimensions && data.col < gridProperties.dimensions;
-  var vApiKey = data.apiKey !== undefined && ApiKeyHandler.verify(data.apiKey);
-  console.log('Validating data: %s %s %s', vTypes, vDimensions, vApiKey);
-  return vTypes && vDimensions && vApiKey;
-}
-
 function updateGrid (client, data) {
   var gridCol = grid[data.row][data.col];
   if(gridCol.color === '') {
@@ -57,6 +46,15 @@ function updateGrid (client, data) {
 
 var ApiKeyHandler = require('./apikeyhandler');
 
+function validateData(data) {
+  // yeah so what it's a long return statement why you talkin shit
+  var vTypes = validator.isInt(data.row) && validator.isInt(data.col) && validator.isHexColor(data.color);
+  var vDimensions = data.row < gridProperties.dimensions && data.col < gridProperties.dimensions;
+  var vApiKey = data.apiKey !== undefined && ApiKeyHandler.verify(data.apiKey);
+  console.log('Validating data: %s %s %s', vTypes, vDimensions, vApiKey);
+  return vTypes && vDimensions && vApiKey;
+}
+
 // core app logic
 var port = process.env.PORT || 9001;
 server.listen(port);
@@ -70,11 +68,11 @@ app.get('/', function (req, res) {
 // optimizations for production
 if(process.env.NODE_ENV === 'production') {
 
-  io.enable('browser client minification');
-  io.enable('browser client etag');
-  io.enable('browser client gzip');
-  io.set('log level', 1);
-  io.set('transports', [
+  ioServer.enable('browser client minification');
+  ioServer.enable('browser client etag');
+  ioServer.enable('browser client gzip');
+  ioServer.set('log level', 1);
+  ioServer.set('transports', [
       'websocket'
     , 'htmlfile'
     , 'xhr-polling'
@@ -82,10 +80,10 @@ if(process.env.NODE_ENV === 'production') {
     ]);
 
 }
-io.set('log level', 1);
+ioServer.set('log level', 1);
 
 // describe client connection   
-io.sockets.on('connection', function (socket) {
+ioServer.sockets.on('connection', function (socket) {
   ApiKeyHandler.newKey(socket, null, function (socket) { // DIRTY FIX ME
     console.log('api keys registered:\n' + ApiKeyHandler.ApiKeys.size());
     socket.emit('server ready', { gridArray: grid });
