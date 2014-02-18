@@ -1,3 +1,5 @@
+'use strict';
+
 // Store for ApiKeys
 var ApiKeys = require('memory-cache');
 ApiKeys.debug(true);
@@ -21,8 +23,8 @@ var ApiKeyHandler = function (client, key, callback) { // Create
       callback(!self.clientSession || null);
     },
     throttle: function(callback) {
-      var last_check = self.clientSession.createTime;
-      var compareTime = process.hrtime(last_check);
+      var lastCheck = self.clientSession.createTime;
+      var compareTime = process.hrtime(lastCheck);
       compareTime = (compareTime[0] * 1e9 + compareTime[1]); // convert to nanoseconds
       var rate = 7; // unit: clicks
       var per  = 1000000000; // unit: nanoseconds (1 second)
@@ -32,7 +34,7 @@ var ApiKeyHandler = function (client, key, callback) { // Create
         self.clientSession.allowance = rate; // discard extra tokens
       }
       if (self.clientSession.allowance < 1.0) {
-        callback("rate limited");
+        callback('rate limited');
       }
       else {
         self.clientSession.allowance -= 1.0;
@@ -58,7 +60,7 @@ ApiKeyHandler.verify = function(key) {
 ApiKeyHandler.newKey = function(client, data, callback) {
   var Client = client.id || client;
   var key = uuid.v4();
-  data = (data || {}) // data is optional
+  data = (data || {}); // data is optional
   ApiKeys.put(
     Client,
     {

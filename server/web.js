@@ -18,7 +18,7 @@ var gridProperties = {
 
 // Get our modules
 var ApiKeyHandler = require('./apikeyhandler')
-  , ClientValidator = require('./clientvalidator')
+  , clientValidator = require('./clientvalidator')
   , Grid = require('./grid');
 
 var grid = new Grid(gridProperties.dimensions);
@@ -58,7 +58,7 @@ ioServer.sockets.on('connection', function (socket) {
     //Socket listener for user click
     socket.on('clicked', function (data) {
       console.log('***\n' + socket.id + ' clicked');
-      if(ClientValidator(data, gridProperties.dimensions)) {
+      if(clientValidator(data, gridProperties.dimensions)) {
         new ApiKeyHandler(socket, data.apiKey, function() {
           grid.updateGrid(socket, data);
         });
