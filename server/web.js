@@ -16,35 +16,12 @@ var gridProperties = {
   dimensions: 32
 };
 
-// instantiate grid array
-// this happens once per server boot
-var grid = [];
-for(var y = 0; y < gridProperties.dimensions; y++) {
-  grid.push(new Array(gridProperties.dimensions));
-  for(var x = 0; x < gridProperties.dimensions; x++) {
-    grid[y][x] = {
-      row: y,
-      col: x,
-      color: ''
-    };
-  }
-}
+// Get our modules
+var ApiKeyHandler = require('./apikeyhandler')
+  , ClientValidator = require('./clientvalidator')
+  , Grid = require('./grid');
 
-function updateGrid (client, data) {
-  var gridCol = grid[data.row][data.col];
-  if(gridCol.color === '') {
-    gridCol.color = data.color;
-  } else {
-    gridCol.color = '';
-  }
-  console.log('updating grid');
-  client.broadcast.emit('update', gridCol, function() {
-    console.log('updated grid');
-  });
-}
-
-var ApiKeyHandler = require('./apikeyhandler');
-var ClientValidator = require('./clientvalidator')
+var grid = new Grid(gridProperties.dimensions);
 
 // core app logic
 var port = process.env.PORT || 9001;
@@ -83,7 +60,7 @@ ioServer.sockets.on('connection', function (socket) {
       console.log('***\n' + socket.id + ' clicked');
       if(ClientValidator(data, gridProperties.dimensions)) {
         new ApiKeyHandler(socket, data.apiKey, function() {
-          updateGrid(socket, data);
+          grid.updateGrid(socket, data);
         });
       } else {
         console.warn('warning: user provided invalid data: %s %s %s %s', data.row, data.col, data.color, data.apiKey);
