@@ -54,7 +54,7 @@ ioServer.set('log level', 1);
 ioServer.sockets.on('connection', function (socket) {
   ApiKeyHandler.newKey(socket, null, function (socket) { // DIRTY FIX ME
     console.log('api keys registered:\n' + ApiKeyHandler.ApiKeys.size());
-    socket.emit('server ready', { gridArray: grid });
+    socket.emit('server ready', { gridArray: grid.gridMatrix });
     //Socket listener for user click
     socket.on('clicked', function (data) {
       console.log('***\n' + socket.id + ' clicked');
