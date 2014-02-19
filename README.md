@@ -4,7 +4,7 @@ _Live multiplayer grid clicking game._
 
 [![Build Status](https://travis-ci.org/pro-grid/pro-grid.png?branch=master)](https://travis-ci.org/pro-grid/pro-grid)  
 [![Code Climate](https://codeclimate.com/github/pro-grid/pro-grid.png)](https://codeclimate.com/github/pro-grid/pro-grid)  
-[![Coverage Status](https://coveralls.io/repos/austinpray/pro-grid/badge.png)](https://coveralls.io/r/austinpray/pro-grid)
+[![Coverage Status](https://coveralls.io/repos/pro-grid/pro-grid/badge.png)](https://coveralls.io/r/pro-grid/pro-grid)
 
 [Google+](https://plus.google.com/+ProgridIoofficial)  
 [Facebook](https://www.facebook.com/ProGrid)  
