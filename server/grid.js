@@ -32,12 +32,11 @@ var Grid = function(gridDimensions) {
 };
 
 Grid.prototype.updateGrid = function(client, data) {
+  // async.waterfall()
   var gridCol = this.updateGridMatrix(data);
-  this.updateRedis(data);
   console.log('updating grid');
-  client.broadcast.emit('update', gridCol, function() {
-    console.log('updated grid');
-  });
+  client.broadcast.emit('update', gridCol);
+  this.updateRedis(data, gridCol);
 };
 
 Grid.prototype.updateGridMatrix = function(data) {
@@ -50,11 +49,17 @@ Grid.prototype.updateGridMatrix = function(data) {
   return gridCol;
 };
 
-Grid.prototype.updateRedis = function(data) {
+Grid.prototype.updateRedis = function(data, gridCol) {
   var key = data.row + '-' + data.col;
   var value = data.color;
-  console.log('saved ' + value + ' to redis for ' + key);
-  redisClient.set(key, value, redis.print);
+  if(gridCol.color === '') {
+    redisClient.del(key);
+  } else {
+    gridCol.color = data.color;
+    console.log('saved ' + value + ' to redis for ' + key);
+    redisClient.set(key, value, redis.print);
+  }
+
 };
 
 Grid.prototype.loadGridFromRedis = function(gridDimensions) {
