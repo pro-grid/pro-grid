@@ -32,34 +32,41 @@ var Grid = function(gridDimensions) {
 };
 
 Grid.prototype.updateGrid = function(client, data) {
-  // async.waterfall()
-  var gridCol = this.updateGridMatrix(data);
-  console.log('updating grid');
-  client.broadcast.emit('update', gridCol);
-  this.updateRedis(data, gridCol);
-};
-
-Grid.prototype.updateGridMatrix = function(data) {
-  var gridCol = this.gridMatrix[data.row][data.col];
-  if(gridCol.color === '') {
-    gridCol.color = data.color;
-  } else {
-    gridCol.color = '';
-  }
-  return gridCol;
-};
-
-Grid.prototype.updateRedis = function(data, gridCol) {
-  var key = data.row + '-' + data.col;
-  var value = data.color;
-  if(gridCol.color === '') {
-    redisClient.del(key);
-  } else {
-    gridCol.color = data.color;
-    console.log('saved ' + value + ' to redis for ' + key);
-    redisClient.set(key, value, redis.print);
-  }
-
+  var self = this;
+  self.client = client;
+  self.data = data;
+  async.waterfall([
+    // update grid matrix with new data
+    function(callback) {
+      var gridCol = self.gridMatrix[self.data.row][self.data.col];
+      if(gridCol.color === '') {
+        gridCol.color = data.color;
+      } else {
+        gridCol.color = '';
+      }
+      callback(null, gridCol);
+    },
+    // emit msg to client about new data
+    function(gridCol, callback) {
+      self.client.broadcast.emit('update', gridCol);
+      callback(null, gridCol);
+    },
+    // update redis store with new data
+    function(gridCol, callback) {
+      var key = self.data.row + '-' + self.data.col;
+      var value = self.data.color;
+      if(gridCol.color === '') {
+        redisClient.del(key);
+      } else {
+        gridCol.color = data.color;
+        console.log('saved ' + value + ' to redis for ' + key);
+        redisClient.set(key, value, redis.print);
+      }
+      callback(null, 'done');
+    }
+  ], function(err, result) {
+      console.log('finished processing click!');
+  });
 };
 
 Grid.prototype.loadGridFromRedis = function(gridDimensions) {
