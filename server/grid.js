@@ -1,8 +1,14 @@
 'use strict';
 
-var redis = require('redis')
-  , redisClient = redis.createClient()
-  , async = require('async');
+if (process.env.REDISTOGO_URL) {
+  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  var redisClient = require("redis").createClient(rtg.port, rtg.hostname);
+  redisClient.client.auth(rtg.auth.split(":")[1]);
+} else {
+  var redisClient = require("redis").createClient();
+}
+
+var async = require('async');
 
 var Grid = function(gridDimensions) {
   this.gridDimensions = gridDimensions;
@@ -60,7 +66,7 @@ Grid.prototype.updateGrid = function(client, data) {
       } else {
         gridCol.color = data.color;
         console.log('saved ' + value + ' to redis for ' + key);
-        redisClient.set(key, value, redis.print);
+        redisClient.set(key, value);
       }
       callback(null, 'done');
     }
