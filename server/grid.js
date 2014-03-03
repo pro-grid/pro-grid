@@ -1,11 +1,12 @@
 'use strict';
 var redisClient;
+var redis = require('redis');
 if (process.env.REDISTOGO_URL) {
-  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-  redisClient = require("redis").createClient(rtg.port, rtg.hostname);
-  redisClient.auth(rtg.auth.split(":")[1]);
+  var rtg   = require('url').parse(process.env.REDISTOGO_URL);
+  redisClient = redis.createClient(rtg.port, rtg.hostname);
+  redisClient.auth(rtg.auth.split(':')[1]);
 } else {
-  redisClient = require("redis").createClient();
+  redisClient = redis.createClient();
 }
 
 var async = require('async');
