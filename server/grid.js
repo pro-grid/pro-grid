@@ -42,34 +42,35 @@ Grid.prototype.updateGrid = function(client, data) {
   var self = this;
   self.client = client;
   self.data = data;
-  async.waterfall([
+  self.gridCol = self.gridMatrix[self.data.row][self.data.col];
+  async.series([
     // update grid matrix with new data
     function(callback) {
-      var gridCol = self.gridMatrix[self.data.row][self.data.col];
-      if(gridCol.color === '') {
-        gridCol.color = data.color;
+      self.gridCol = self.gridMatrix[self.data.row][self.data.col];
+      if(self.gridCol.color === '') {
+        self.gridCol.color = data.color;
       } else {
-        gridCol.color = '';
+        self.gridCol.color = '';
       }
-      callback(null, gridCol);
+      callback(null);
     },
     // emit msg to client about new data
-    function(gridCol, callback) {
-      self.client.broadcast.emit('update', gridCol);
-      callback(null, gridCol);
+    function(callback) {
+      self.client.broadcast.emit('update', self.gridCol);
+      callback(null);
     },
     // update redis store with new data
-    function(gridCol, callback) {
+    function(callback) {
       var key = self.data.row + '-' + self.data.col;
       var value = self.data.color;
-      if(gridCol.color === '') {
+      if(self.gridCol.color === '') {
         redisClient.del(key);
       } else {
-        gridCol.color = data.color;
+        self.gridCol.color = data.color;
         console.log('saved ' + value + ' to redis for ' + key);
         redisClient.set(key, value);
       }
-      callback(null, 'done');
+      callback(null);
     }
   ], function(err, result) {
       console.log('finished processing click!');
