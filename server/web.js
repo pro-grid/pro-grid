@@ -33,22 +33,6 @@ app.get('/', function (req, res) {
   res.sendfile(path.normalize(__dirname +  '/../dist/index.html'));
 });
 
-// optimizations for production
-if(process.env.NODE_ENV === 'production') {
-
-  ioServer.enable('browser client minification');
-  ioServer.enable('browser client etag');
-  ioServer.enable('browser client gzip');
-  ioServer.set('log level', 1);
-  ioServer.set('transports', [
-      'websocket'
-    , 'htmlfile'
-    , 'xhr-polling'
-    , 'jsonp-polling'
-    ]);
-
-}
-ioServer.set('log level', 1);
 
 // describe client connection   
 ioServer.sockets.on('connection', function (socket) {
