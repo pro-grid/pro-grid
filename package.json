@@ -16,6 +16,7 @@
     "validator": "~3.12.0"
   },
   "devDependencies": {
+    "coveralls": "~2.10.0",
     "grunt": "~0.4.5",
     "grunt-autoprefixer": "~0.7.3",
     "grunt-bower-install": "~0.6.0",
@@ -33,22 +34,22 @@
     "grunt-contrib-uglify": "~0.4.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-google-cdn": "~0.4.0",
+    "grunt-karma": "~0.8.3",
+    "grunt-mocha-test": "~0.10.2",
     "grunt-newer": "~0.7.0",
     "grunt-ngmin": "~0.0.2",
+    "grunt-nodemon": "~0.2.0",
     "grunt-rev": "~0.1.0",
     "grunt-svgmin": "~0.4.0",
     "grunt-usemin": "~2.1.1",
+    "istanbul": "~0.2.4",
     "jshint-stylish": "~0.2.0",
+    "karma-jasmine": "^0.1.5",
     "load-grunt-tasks": "~0.4.0",
-    "time-grunt": "~0.3.1",
-    "nodemon": "~1.1.1",
-    "grunt-nodemon": "~0.2.0",
-    "grunt-karma": "~0.8.3",
     "mocha": "~1.20.0",
-    "grunt-mocha-test": "~0.10.2",
-    "coveralls": "~2.10.0",
     "mocha-lcov-reporter": "0.0.1",
-    "istanbul": "~0.2.4"
+    "nodemon": "~1.1.1",
+    "time-grunt": "~0.3.1"
   },
   "engines": {
     "node": "0.10.x"
