@@ -3,8 +3,8 @@ progrid.io
 _Live multiplayer grid clicking game._
 
 [![Build Status](https://travis-ci.org/pro-grid/pro-grid.png?branch=master)](https://travis-ci.org/pro-grid/pro-grid) 
-[![Code Climate](https://codeclimate.com/github/pro-grid/pro-grid.png)](https://codeclimate.com/github/pro-grid/pro-grid) 
-[![Coverage Status](https://coveralls.io/repos/pro-grid/pro-grid/badge.png)](https://coveralls.io/r/pro-grid/pro-grid) 
+[![Code Climate](http://img.shields.io/codeclimate/github/pro-grid/pro-grid.svg)](https://codeclimate.com/github/pro-grid/pro-grid) 
+[![Coverage Status](https://img.shields.io/coveralls/pro-grid/pro-grid.svg)](https://coveralls.io/r/pro-grid/pro-grid) 
 [![Dependencies](https://david-dm.org/pro-grid/pro-grid.png?theme=shields.io)](https://david-dm.org/pro-grid/pro-grid)
 [![Dependencies](https://david-dm.org/pro-grid/pro-grid/dev-status.png?theme=shields.io)](https://david-dm.org/pro-grid/pro-grid#info=devDependencies)
 
