@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert')
-  , ApiKeyHandler = require('../../../server/apikeyhandler')
+  , ApiKeyHandler = require('../lib/apikeyhandler')
   , uuid = require('node-uuid');
 
 var returnsTrue = function() {

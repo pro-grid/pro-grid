@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert')
-  , clientValidator = require('../../../server/clientvalidator')
+  , clientValidator = require('../lib/clientvalidator')
   , uuid = require('node-uuid');
 
 describe('clientValidator', function() {
