@@ -1,12 +1,6 @@
 language: node_js
 node_js:
-- '0.10'
-before_install:
-- gem install sass -v 3.2.14
-- gem install compass -v 0.12.2
-before_script:
-- npm install -g bower grunt-cli
-- bower install
+- '0.11'
 deploy:
   provider: heroku
   api_key:
