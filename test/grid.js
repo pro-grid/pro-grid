@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert')
-  , Grid = require('../../../server/grid');
+  , Grid = require('../lib/grid');
 
 describe('Grid', function() {
   var gridDimensions = 32;
