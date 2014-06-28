@@ -26,9 +26,36 @@ describe('clientValidator', function() {
     assert(clientValidator(data, dimensions) === false);
   });
 
-  it('should not validate when given invalid color', function() {
+  it('should not validate when given invalid hex color', function() {
     var data = {row: validRow, col: validCol, color: '#abababab', apiKey: validApiKey};
     assert(clientValidator(data, dimensions) === false);
+  });
+
+  it('should not validate when given invalid rgb color', function() {
+    var data = {row: validRow, col: validCol, color: 'rgb(300, 0, 0)', apiKey: validApiKey};
+    assert(clientValidator(data, dimensions) === false);
+    data.color = 'rgb(,0,0)';
+    assert(clientValidator(data, dimensions) === false);
+    data.color = 'rgb()';
+    assert(clientValidator(data, dimensions) === false);
+    data.color = 'rgb(255 255 255)';
+    assert(clientValidator(data, dimensions) === false);
+  });
+
+  it('should validate when given valid hex color', function() {
+    var data = {row: validRow, col: validCol, color: '#bada55', apiKey: validApiKey};
+    assert(clientValidator(data, dimensions) === true);
+  });
+
+  it('should validate if the rgb color is valid', function () { 
+    var data = {row: validRow, col: validCol, color: 'rgb(255, 255, 255)', apiKey: validApiKey};
+    assert(clientValidator(data, dimensions) === true);
+    data.color = 'rgb(000, 000, 000)';
+    assert(clientValidator(data, dimensions) === true);
+    data.color = 'rgb(0, 255, 0)';
+    assert(clientValidator(data, dimensions) === true);
+    data.color = 'rgb(0, 255,0)';
+    assert(clientValidator(data, dimensions) === true);
   });
 
   it('should not validate when given invalid api key', function() {
