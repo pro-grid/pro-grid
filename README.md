@@ -103,7 +103,7 @@ You | Open Sauce Software Contributer
 [Build Status]: https://travis-ci.org/pro-grid/pro-grid
 [Code Climate Badge]: http://img.shields.io/codeclimate/github/pro-grid/pro-grid.svg?style=flat
 [Code Climate]: https://codeclimate.com/github/pro-grid/pro-grid
-[Coverage Status Badge]: https://img.shields.io/coveralls/pro-grid/pro-grid/master.svg?style=flat
+[Coverage Status Badge]: https://img.shields.io/coveralls/pro-grid/pro-grid.svg?style=flat
 [Coverage Status]: https://coveralls.io/r/pro-grid/pro-grid?branch=master
 [Dependency Status Badge]: http://img.shields.io/david/pro-grid/pro-grid.svg?style=flat
 [Dependency Status]: https://david-dm.org/pro-grid/pro-grid
