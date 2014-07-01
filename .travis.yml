@@ -9,5 +9,7 @@ deploy:
     master: pro-grid-staging
   on:
     repo: pro-grid/pro-grid
+services:
+  - redis-server
 after_script:
 - npm run-script coveralls
