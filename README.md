@@ -19,28 +19,20 @@ which handles many clients, and [pro-grid-client][], the user interface built as
 a client-side javascript app using [AngularJS][]. 
 
 ## quickstart
-This project relies on [Node.js][] and a running [Redis][] instance
-
-Install the dependencies
+If you know your way around [Vagrant][]:
 
 ```bash
-npm install
+vagrant up
 ```
 
-Run the server
+For more information on how get up an running and the development environment in
+general:
 
-```bash
-# make sure your Redis server is running first
-make watch
-```
+>[**visit the development instructions**][dev instructions]
 
-To run the test suite
+For a list of commands needed to work on progrid.io server:
 
-```bash
-make test
-```
-
-If you need some help see the getting started tutorial below.
+>[**commands reference**][commands link] 
 
 
 ## team
@@ -72,6 +64,9 @@ You | Open Sauce Software Contributer
 [Ruby]: https://www.ruby-lang.org
 [Sass]: http://sass-lang.com/ "Sass"
 [Socket.IO]: http://socket.io/
+[Vagrant]: https://vagrantup.com/
+[commands link]: docs/development.md#commands
+[dev instructions]: docs/development.md
 [devDependency Status Badge]: http://img.shields.io/david/dev/pro-grid/pro-grid.svg?style=flat
 [devDependency Status]: https://david-dm.org/pro-grid/pro-grid#info=devDependencies
 [gulp]: http://gulpjs.com/ "gulp.js"
