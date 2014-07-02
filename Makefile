@@ -11,7 +11,9 @@ watch:
 	vagrant up
 
 test:
-	$(PG_VAGRANT) "$(PG_CD) ./node_modules/.bin/mocha --reporter list"
+	$(PG_VAGRANT) "$(PG_CD) npm test"
+
+
 
 logs:
 	$(PG_VAGRANT) 'tail -f -n 20 /var/log/node.log'
