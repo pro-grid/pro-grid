@@ -8,18 +8,21 @@ sync:
 	$(PG_SYNC)
 
 watch: 
-	$(PG_VAGRANT) '$(PG_CD) ./node_modules/.bin/nodemon lib/web.js'
+	vagrant up
 
 test:
 	$(PG_VAGRANT) "$(PG_CD) ./node_modules/.bin/mocha --reporter list"
 
 logs:
-	$(PG_VAGRANT) 'tail -f /var/log/node.log'
+	$(PG_VAGRANT) 'tail -f -n 20 /var/log/node.log'
 
 jshint:
 	$(PG_VAGRANT) '$(PG_CD) ./node_modules/jshint/bin/jshint --reporter node_modules/jshint-stylish/stylish.js lib/*.js test/*.js'
 
 install: sync
 	$(PG_VAGRANT) '$(PG_CD) npm prune && npm install'
+
+destoroyah:
+	vagrant destroy -f && vagrant up
 
 .PHONY: test watch jshint install sync
