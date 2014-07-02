@@ -26,24 +26,29 @@ describe('Grid', function() {
 
   describe('constructor', function() {
     it('should instantiate a new grid', function() {
-      var grid = new Grid(gridDimensions, redisClient);
-      assert(grid instanceof Grid);
+      var grid = new Grid(gridDimensions, redisClient)
+        .then(function () {
+          assert(grid instanceof Grid);
+        });
     });
 
     it('should create a 2d array representing the grid', function() {
-      var grid = new Grid(gridDimensions, redisClient);
-      assert(grid.gridMatrix instanceof Array);
-      assert(grid.gridMatrix.length === gridDimensions);
-      assert(grid.gridMatrix[0].length === gridDimensions);
+      var grid = new Grid(gridDimensions, redisClient)
+        .then(function () {
+          assert(grid.gridMatrix instanceof Array);
+          assert(grid.gridMatrix.length === gridDimensions);
+          assert(grid.gridMatrix[0].length === gridDimensions);
+        });
     });
 
     it('should set a flag that indicates redis is now saving the grid', function() {
       redisClient.get('gridSaved', function(err, reply) {
         assert(!reply);
       });
-      var grid = new Grid(gridDimensions, redisClient);
-      redisClient.get('gridSaved', function(err, reply) {
-        assert(reply);
+      var grid = new Grid(gridDimensions, redisClient).then(function () {
+        redisClient.get('gridSaved', function(err, reply) {
+          assert(reply);
+        });
       });
     });
   });
@@ -55,10 +60,12 @@ describe('Grid', function() {
         col: '24',
         color: '#FFFFFF'
       };
-      var grid = new Grid(gridDimensions, redisClient);
-      assert(grid.gridMatrix[data.row][data.col].color === '');
-      grid.updateGrid(client, data);
-      assert(grid.gridMatrix[data.row][data.col].color === data.color);
+      var grid = new Grid(gridDimensions, redisClient)
+        .then(function () {
+          assert(grid.gridMatrix[data.row][data.col].color === '');
+          grid.updateGrid(client, data);
+          assert(grid.gridMatrix[data.row][data.col].color === data.color);
+        });
     });
 
     it('should update grid by deleting color if a color is already present', function() {
@@ -67,11 +74,13 @@ describe('Grid', function() {
         col: '24',
         color: '#FFFFFF'
       };
-      var grid = new Grid(gridDimensions, redisClient);
-      grid.updateGrid(client, data);
-      assert(grid.gridMatrix[data.row][data.col].color === data.color);
-      grid.updateGrid(client, data);
-      assert(grid.gridMatrix[data.row][data.col].color === '');
+      var grid = new Grid(gridDimensions, redisClient)
+        .then(function () {
+          grid.updateGrid(client, data);
+          assert(grid.gridMatrix[data.row][data.col].color === data.color);
+          grid.updateGrid(client, data);
+          assert(grid.gridMatrix[data.row][data.col].color === '');
+        });
     });
   });
 });
