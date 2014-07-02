@@ -45,7 +45,7 @@ describe('Grid', function() {
       redisClient.get('gridSaved', function(err, reply) {
         assert(!reply);
       });
-      var grid = new Grid(gridDimensions, redisClient).then(function () {
+      new Grid(gridDimensions, redisClient).then(function () {
         redisClient.get('gridSaved', function(err, reply) {
           assert(reply);
         });
