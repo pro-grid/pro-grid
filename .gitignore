@@ -6,3 +6,4 @@ app/bower_components
 dist/bower_components
 *.heapsnapshot
 .coveralls.yml
+.vagrant
