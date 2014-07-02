@@ -13,8 +13,6 @@ watch:
 test:
 	$(PG_VAGRANT) "$(PG_CD) npm test"
 
-
-
 logs:
 	$(PG_VAGRANT) 'tail -f -n 20 /var/log/node.log'
 
