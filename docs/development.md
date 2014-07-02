@@ -43,7 +43,7 @@ automatically restarted
 
 ## commands
 All commands are run inside the project directory. Refer to the [Vagrant
-Command-Line Interface Documentation][Vagrant CLI Docs] full a full list of
+Command-Line Interface Documentation][Vagrant CLI Docs] for a full list of
 Vagrant commands.
 
 ### vagrant up
