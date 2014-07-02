@@ -19,74 +19,21 @@ which handles many clients, and [pro-grid-client][], the user interface built as
 a client-side javascript app using [AngularJS][]. 
 
 ## quickstart
-This project relies on [Node.js][] and a running [Redis][] instance
-
-Install the dependencies
+If you know your way around [Vagrant][]:
 
 ```bash
-npm install
+vagrant up
 ```
 
-Run the server
+For more information on how get up an running and the development environment in
+general:
 
-```bash
-# make sure your Redis server is running first
-make watch
-```
+>[**visit the development instructions**][dev instructions]
 
-To run the test suite
+For a list of commands needed to work on progrid.io server:
 
-```bash
-make test
-```
+>[**commands reference**][commands link] 
 
-If you need some help see the getting started tutorial below.
-
-## getting started tutorial
-
-### install dependencies
-We presume you have an up-to-date version of [Node.js][] installed on your machine.
-We recommend [nvm][] for managing your node installations.
-
-Install the Node.js dependencies via 
-
-```bash
-npm install
-```
-
-Progrid uses [Redis][] as its data store. You will need to install and run a
-Redis server to run the progrid server. Installation instructions can
-be found [here][Redis install]. If you are on a Mac with [Homebrew][] installed it
-is as simple as running `brew install redis` and following the post-install
-instructions.
-
-### run the server
-We use [Make][] as our build tool. Most all unix-like operating systems should
-have this utility out of the box.
-
-To run the server:
-
-```bash
-make watch
-```
-
-This command will do two things:
-
- 1. Run `lib/web.js` which will start the server
- 2. Restart the server any time you change the source files
-
-This makes development nice and easy.
-
-Note: if you do not have Make (perhaps you are on Windows) and are truly lazy,
-you can manually copy/paste the commands found in the [Makefile][]
-
-### run the test suite
-
-```bash
-make test
-```
-
-If all the tests pass then everything should be good to go at this point.
 
 ## team
 
@@ -101,6 +48,7 @@ You | Open Sauce Software Contributer
 [Bower]: http://bower.io/ "Bower"
 [Build Status Badge]: http://img.shields.io/travis/pro-grid/pro-grid.svg?style=flat
 [Build Status]: https://travis-ci.org/pro-grid/pro-grid
+[CONTRIBUTING.md]: CONTRIBUTING.md
 [Code Climate Badge]: http://img.shields.io/codeclimate/github/pro-grid/pro-grid.svg?style=flat
 [Code Climate]: https://codeclimate.com/github/pro-grid/pro-grid
 [Coverage Status Badge]: https://img.shields.io/coveralls/pro-grid/pro-grid.svg?style=flat
@@ -116,6 +64,9 @@ You | Open Sauce Software Contributer
 [Ruby]: https://www.ruby-lang.org
 [Sass]: http://sass-lang.com/ "Sass"
 [Socket.IO]: http://socket.io/
+[Vagrant]: https://vagrantup.com/
+[commands link]: docs/development.md#commands
+[dev instructions]: docs/development.md
 [devDependency Status Badge]: http://img.shields.io/david/dev/pro-grid/pro-grid.svg?style=flat
 [devDependency Status]: https://david-dm.org/pro-grid/pro-grid#info=devDependencies
 [gulp]: http://gulpjs.com/ "gulp.js"
