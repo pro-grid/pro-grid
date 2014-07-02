@@ -9,8 +9,7 @@ packaged and ready to go.
 [Learn more about how Vagrant benefits you.][Why Vagrant]
 
 ## dependencies
-progrid.io server has a pretty slick development environment packaged and
-ready to go.  You need these things installed on your machine to get started:
+You need these things installed on your machine to get started:
 
   - [Vagrant][]
   - [Virtualbox][]
