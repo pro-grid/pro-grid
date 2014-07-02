@@ -1,19 +1,51 @@
-progrid.io
+Contributing to progrid.io server
 ===
-## Javascript Guidelines
-We appreciate all pull requests. However in an effort to keep the code maintainable we do ask that potential contributions follow some style guidelines. When in doubt, I would default to the [Google JavaScript Style Guide](https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml).
+## development environment
 
-### All code should pass [JSHint](http://www.jshint.com/) without errors
-run `grunt jshint` to check your build for [JSHint](http://www.jshint.com/) errors. This helps easily enforce best practices across all contributions.
->JSHint is a community-driven tool to detect errors and potential problems in JavaScript code and to enforce your team's coding conventions. It is very flexible so you can easily adjust it to your particular coding guidelines and the environment you expect your code to execute in. JSHint is open source and will always stay this way.
+## vagrant development getting started tutorial
 
-### Asynchronous style
-If you would like to make improvements to web.js (the node server componenet), we are trying to minimize the amount of synchronous code. Please consider writing in an asynchronous style when modifying web.js. 
+## local development getting started tutorial
 
-**More information:**
- - http://blog.shinetech.com/2011/08/26/asynchronous-code-design-with-node-js/
- - https://github.com/caolan/async#asyncjs
- - http://book.mixu.net/node/ch7.html
+### install dependencies
+We presume you have an up-to-date version of [Node.js][] installed on your machine.
+We recommend [nvm][] for managing your node installations.
 
-### We agile now
-Austin is the scrum master or whatever
+Install the Node.js dependencies via 
+
+```bash
+npm install
+```
+
+Progrid uses [Redis][] as its data store. You will need to install and run a
+Redis server to run the progrid server. Installation instructions can
+be found [here][Redis install]. If you are on a Mac with [Homebrew][] installed it
+is as simple as running `brew install redis` and following the post-install
+instructions.
+
+### run the server
+We use [Make][] as our build tool. Most all unix-like operating systems should
+have this utility out of the box.
+
+To run the server:
+
+```bash
+make watch
+```
+
+This command will do two things:
+
+ 1. Run `lib/web.js` which will start the server
+ 2. Restart the server any time you change the source files
+
+This makes development nice and easy.
+
+Note: if you do not have Make (perhaps you are on Windows) and are truly lazy,
+you can manually copy/paste the commands found in the [Makefile][]
+
+### run the test suite
+
+```bash
+make test
+```
+
+If all the tests pass then everything should be good to go at this point.

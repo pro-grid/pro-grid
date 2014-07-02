@@ -24,10 +24,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "lib/", build_path+"/lib"
   config.vm.synced_folder "site/", build_path+"/site"
   config.vm.synced_folder "test/", build_path+"/test"
-  config.vm.synced_folder "node_modules/", build_path+"/node_modules"
 
   config.vm.provision "shell",
-    path: "./provisioning/install.sh",
+    path: "./vagrant/install.sh",
     args: build_path,
     keep_color: true
 
