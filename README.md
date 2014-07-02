@@ -28,12 +28,22 @@ vagrant up
 For more information on how get up an running and the development environment in
 general:
 
->[**visit the development instructions**][dev instructions]
+>[**visit the detailed development tutorial**][dev instructions]
 
 For a list of commands needed to work on progrid.io server:
 
 >[**commands reference**][commands link] 
 
+### now what?
+progrid.io server is only half of progrid.io. You need a 
+[progrid.io client][pro-grid-client] 
+to connect to your server.
+
+>[**progrid.io client**][pro-grid-client]
+
+## need help?
+[Opening an issue][new issue] is the fastest way to get help. You can also try
+pinging Austin Pray ([@austinpray][]) on Twitter.
 
 ## team
 
@@ -44,6 +54,7 @@ Darren Cattle | Web Development God
 Ridwan Hoq | Repo Mule
 You | Open Sauce Software Contributer
 
+[@austinpray]: https://twitter.com/austinpray
 [AngularJS]: https://angularjs.org/ "AngularJS"
 [Bower]: http://bower.io/ "Bower"
 [Build Status Badge]: http://img.shields.io/travis/pro-grid/pro-grid.svg?style=flat
@@ -71,6 +82,7 @@ You | Open Sauce Software Contributer
 [devDependency Status]: https://david-dm.org/pro-grid/pro-grid#info=devDependencies
 [gulp]: http://gulpjs.com/ "gulp.js"
 [livereload]: https://github.com/intesso/connect-livereload
+[new issue]: https://github.com/pro-grid/pro-grid/issues/new
 [nvm]: https://github.com/creationix/nvm "Node Version Manager (NVM)"
 [pro-grid-client]: http://github.com/pro-grid/pro-grid-client
 [pro-grid-utils]: http://github.com/austinpray/pro-grid-utils
