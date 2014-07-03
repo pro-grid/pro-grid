@@ -82,5 +82,42 @@ describe('Grid', function() {
           assert(grid.gridMatrix[data.row][data.col].color === '');
         });
     });
+
+    it('should update redis when grid is updated with a new color', function() {
+      var data = {
+        row: '12',
+        col: '24',
+        color: '#FFFFFF'
+      };
+      var grid = new Grid(gridDimensions, redisClient)
+        .then(function () {
+          grid.updateGrid(client, data)
+          .then(function() {
+            var query = data.row + '-' + data.col;
+            redisClient.get(query, function(err, reply) {
+              assert(reply === data.color);
+            });
+          });
+        });
+    });
+
+    it('should update redis when grid is updated to clear a color', function() {
+      var data = {
+        row: '12',
+        col: '24',
+        color: '#FFFFFF'
+      };
+      var grid = new Grid(gridDimensions, redisClient)
+        .then(function () {
+          grid.updateGrid(client, data);
+          grid.updateGrid(client,data)
+          .then(function() {
+            var query = data.row + '-' + data.col;
+            redisClient.get(query, function(err, reply) {
+              assert(!reply);
+            });
+          });
+        });
+    });
   });
 });
