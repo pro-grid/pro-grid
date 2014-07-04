@@ -109,13 +109,21 @@ describe('Grid', function() {
       };
       var grid = new Grid(gridDimensions, redisClient)
         .then(function () {
-          grid.updateGrid(client, data);
-          grid.updateGrid(client,data)
+          grid.updateGrid(client, data)
             .then(function() {
               var query = data.row + '-' + data.col;
               redisClient.get(query, function(err, reply) {
-                assert(!reply);
+                assert(reply === data.color);
               });
+            })
+            .then(function() {
+              grid.updateGrid(client,data)
+                .then(function() {
+                  var query = data.row + '-' + data.col;
+                  redisClient.get(query, function(err, reply) {
+                    assert(!reply);
+                  });
+                });
             });
         });
     });
