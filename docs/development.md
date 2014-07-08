@@ -15,6 +15,8 @@ You need these things installed on your machine to get started:
   - [Virtualbox][]
   - [Make][] (included by default in any Unix-like OS)
 
+_Windows users: [we have tried GnuWin32 and it works fine][Make windows]_
+
 ## get started
 To spawn a fully-functioning development environment all you have to do is run:
 
@@ -94,6 +96,7 @@ pinging Austin Pray ([@austinpray][]) on Twitter.
 [@austinpray]: https://twitter.com/austinpray
 [JSHint]: http://www.jshint.com/
 [Make]: http://www.gnu.org/software/make/
+[Make windows]: http://gnuwin32.sourceforge.net/packages/make.htm
 [Mocha]: http://visionmedia.github.io/mocha/
 [Node.JS]: http://nodejs.org/
 [Redis]: http://redis.io/
