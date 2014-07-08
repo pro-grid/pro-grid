@@ -80,6 +80,13 @@ Any time you make edits outside of `lib/`, `test/`, or `site/` you must sync
 these changes over to the guest machine. You will not have to use this command
 very often however.
 
+## now what?
+progrid.io server is only half of progrid.io. You need a 
+[progrid.io client][pro-grid-client] 
+to connect to your server.
+
+>[**progrid.io client**][pro-grid-client]
+
 ## need help?
 [Opening an issue][new issue] is the fastest way to get help. You can also try
 pinging Austin Pray ([@austinpray][]) on Twitter.
@@ -97,3 +104,4 @@ pinging Austin Pray ([@austinpray][]) on Twitter.
 [development gif]: http://i.imgur.com/OnoxXgq.gif
 [new issue]: https://github.com/pro-grid/pro-grid/issues/new
 [npm]: https://www.npmjs.org/
+[pro-grid-client]: http://github.com/pro-grid/pro-grid-client
