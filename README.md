@@ -7,6 +7,7 @@ progrid.io server
 [![Coverage Status Badge][]][Coverage Status]
 [![Dependency Status Badge][]][Dependency Status]
 [![devDependency Status Badge][]][devDependency Status]
+[![Gitter chat][gitter badge]][gitter]
 
 [Google+](https://plus.google.com/+ProgridIoofficial) 
 [Facebook](https://www.facebook.com/ProGrid)
@@ -66,6 +67,8 @@ You | Open Sauce Software Contributer
 [Coverage Status]: https://coveralls.io/r/pro-grid/pro-grid?branch=master
 [Dependency Status Badge]: http://img.shields.io/david/pro-grid/pro-grid.svg?style=flat
 [Dependency Status]: https://david-dm.org/pro-grid/pro-grid
+[gitter]: https://gitter.im/pro-grid
+[gitter badge]: http://img.shields.io/badge/GITTER-progrid-green.svg?style=flat
 [Homebrew]: http://brew.sh/
 [Make]: http://www.gnu.org/software/make/
 [Makefile]: https://github.com/pro-grid/pro-grid/blob/master/Makefile
