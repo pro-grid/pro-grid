@@ -1,6 +1,6 @@
 {
   "name": "progrid",
-  "version": "1.0.2",
+  "version": "1.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/pro-grid/pro-grid.git"
@@ -11,6 +11,7 @@
     "memory-cache": "0.0.5",
     "newrelic": "~1.7.0",
     "node-uuid": "~1.4.1",
+    "q": "^1.0.1",
     "randomcolor": "^0.1.1",
     "redis": "~0.10.1",
     "socket.io": "~1.0.2",
@@ -29,7 +30,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter list",
+    "test": "./node_modules/.bin/mocha --reporter spec",
     "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   }
 }
