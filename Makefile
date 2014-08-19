@@ -22,7 +22,10 @@ jshint:
 install: sync
 	$(PG_VAGRANT) '$(PG_CD) npm prune && npm install'
 
-destoroyah:
+destroy:
 	vagrant destroy -f && vagrant up
+	
+reboot:
+	vagrant halt && vagrant up
 
-.PHONY: test watch jshint install sync
+.PHONY: test watch jshint install sync destroy reboot
