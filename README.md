@@ -52,8 +52,8 @@ Person | Role
 --- | ---
 Austin Pray | Lead Javascript Snob
 Darren Cattle | Web Development God
-Ridwan Hoq | Repo Mule
-You | Open Sauce Software Contributer
+Ridwan Hoq | Test Driven Dopeness (TDD) Expert
+You | Open Sauce Software Contributor
 
 [@austinpray]: https://twitter.com/austinpray
 [AngularJS]: https://angularjs.org/ "AngularJS"
