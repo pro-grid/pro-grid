@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert')
-  , gridGenerator = require('../lib/gridGenerator');
+  , gridGenerator = require('../lib/gridgenerator');
 
 describe('gridGenerator', function() {
   it('should generate a correctly size 2d array', function() {
