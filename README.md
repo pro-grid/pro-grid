@@ -7,7 +7,6 @@ progrid.io server
 [![Coverage Status Badge][]][Coverage Status]
 [![Dependency Status Badge][]][Dependency Status]
 [![devDependency Status Badge][]][devDependency Status]
-[![Gitter chat][gitter badge]][gitter]
 
 [Google+](https://plus.google.com/+ProgridIoofficial) 
 [Facebook](https://www.facebook.com/ProGrid)
