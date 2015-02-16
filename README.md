@@ -7,6 +7,7 @@ progrid.io server
 [![Coverage Status Badge][]][Coverage Status]
 [![Dependency Status Badge][]][Dependency Status]
 [![devDependency Status Badge][]][devDependency Status]
+[![io.js Supported Badge][]][io.js]
 
 [Google+](https://plus.google.com/+ProgridIoofficial) 
 [Facebook](https://www.facebook.com/ProGrid)
@@ -92,3 +93,5 @@ You | Open Sauce Software Contributor
 [progrid gif]: http://i.imgur.com/GiLvpX3.gif
 [progrid.io]: http://www.progrid.io "progrid.io"
 [rvm]: https://rvm.io/ "Ruby Version Manager (RVM)"
+[io.js]: https://iojs.org/en/index.html
+[io.js Supported Badge]: https://img.shields.io/badge/io.js-supported-brightgreen.svg?style=flat
