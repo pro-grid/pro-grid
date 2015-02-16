@@ -14,6 +14,9 @@ apt-get update
 # get git and redis
 apt-get -y install git redis-server
 
+# this forces npm to install dev dependencies for us
+export NPM_CONFIG_PRODUCTION=false
+
 # install node
 (
   cd /tmp
@@ -23,17 +26,9 @@ apt-get -y install git redis-server
   ./heroku-buildpack-nodejs/bin/compile $build_dir $cache_dir
 )
 
-
 # install node environment variables
-NODE_PATH=${build_dir}'/vendor/node/bin'
+NODE_PATH=${build_dir}'/.heroku/node/bin'
 echo 'export PATH=$PATH:'${NODE_PATH} >> /etc/profile
-
-#install node devDeps
-(
-  echo "installed dev dependencies"
-  cd ${build_dir}
-  ${NODE_PATH}/npm install 2>&1
-)
 
 # globally install nodemon
 ${NODE_PATH}/npm install -g nodemon forever 2>&1
